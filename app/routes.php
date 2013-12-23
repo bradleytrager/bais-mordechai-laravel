@@ -10,6 +10,9 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('/', function(){
+	return View::make('index');
+});
 Route::resource('files', 'FilesController');
 Route::get('shiurim', 'FilesController@getShiurim', ['Bereishit']);
 Route::get('music', 'FilesController@getMusic');
