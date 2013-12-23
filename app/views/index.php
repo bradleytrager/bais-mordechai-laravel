@@ -2,7 +2,14 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="app/css/bootstrap.css">
-
+	<style type="text/css">
+	.files-table tr{
+		cursor: pointer;
+	}
+	.files-table tr:hover a{
+		text-decoration: underline;
+	}
+	</style>
 </head>
 <body ng-controller="FilesController">
 	<div class="container">
@@ -18,24 +25,22 @@
 					</div>
 				</form>
 
-				<table class="table table-bordered table-striped">
-					<tbody ng-repeat="file in files | filter:search |orderBy:'title'" >
-						<tr ng-class="{active: isActive(file)}" ng-click="getFile(file.id)">
-							<td>
-								<a href="" >
-									{{ file.title }}
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="list-group"  >
+					<a href="" class="list-group-item" ng-class="{active: isActive(file)}" 
+					ng-repeat="file in files | filter:search |orderBy:'title'"
+					ng-click="getFile(file.id)">
+						{{ file.title }}
+					</a>
+				</div>
 			</div>
 			<div class="col-md-8">
 				{{activeFile.title}}
 			</div>
+			
 		</div>
 	</div>
 	<script type="text/javascript" src="app/vendor/angular/angular.js"></script>
-    <script type="text/javascript" src="app/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+	<script type="text/javascript" src="app/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 	<script type="text/javascript" src="app/scripts/main.js"></script>
-	</html>
+</body>
+</html>
