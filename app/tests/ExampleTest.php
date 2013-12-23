@@ -1,5 +1,5 @@
 <?php
-
+use BaisMordechai\Models\File;
 class ExampleTest extends TestCase {
 
 	/**
@@ -12,6 +12,13 @@ class ExampleTest extends TestCase {
 		$crawler = $this->client->request('GET', '/');
 
 		$this->assertTrue($this->client->getResponse()->isOk());
+		//$this->assertRedirectedTo("files");
+	}
+
+	public function testFileModel(){
+		$file = new File();
+		$this->assertInstanceOf('BaisMordechai\Models\File', $file);
+
 	}
 
 }

@@ -6,6 +6,9 @@
 	"require": {
 		"laravel/framework": "4.1.*"
 	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.28"
+	},
 	"autoload": {
 		"classmap": [
 			"app/commands",
@@ -15,8 +18,8 @@
 			"app/database/seeds",
 			"app/tests/TestCase.php"
 		],
-		"psr-0":{
-			"BaisMordechai":"app/"
+		"psr-0": {
+			"BaisMordechai": "app/"
 		}
 	},
 	"scripts": {
