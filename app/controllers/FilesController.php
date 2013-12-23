@@ -25,9 +25,8 @@ class FilesController extends \BaseController {
 		if(isset($_GET['parashah'])){
 			$subcategory=$_GET['parashah'];
 		}
-		$shiurim = $this->file->getFilesByCategory('Shiurim', $subcategory);
-		//dd(DB::getQueryLog());
-		return $shiurim;
+		
+		return $this->file->getFilesByCategory('Shiurim', $subcategory);
 	}
 
 	public function getMusic(){
@@ -66,7 +65,7 @@ class FilesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return $this->file->getFileById($id);
 	}
 
 	/**

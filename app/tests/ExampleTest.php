@@ -18,6 +18,7 @@ class ExampleTest extends TestCase {
 	public function testFileModel(){
 		$file = new File();
 		$this->assertInstanceOf('BaisMordechai\Models\File', $file);
+		
 
 	}
 

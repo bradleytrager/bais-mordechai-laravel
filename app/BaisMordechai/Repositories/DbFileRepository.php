@@ -9,6 +9,13 @@ class DbFileRepository implements FileRepositoryInterface{
 		$files = File::all();
 		return $files;
 	}
+
+	public function getFileById($id){
+		$file = File::where('id', $id);
+		return $file->first();
+	}
+
+
 	public function getFilesByCategory($category, $subcategory=null){
 		$files = File::where('category', $category);
 
@@ -18,6 +25,7 @@ class DbFileRepository implements FileRepositoryInterface{
 
 		return $files->get();
 	}
+	
 
 }
 

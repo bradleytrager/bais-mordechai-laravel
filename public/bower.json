@@ -1,0 +1,16 @@
+{
+  "name": "bais-mordechai-laravel",
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "git://github.com/angular/bower-angular.git#~1.2.0-rc.2",
+    "angular-ui-router": "git://github.com/angular-ui/ui-router.git#~0.2.0",
+    "bootstrap": "git://github.com/twbs/bootstrap.git#~3.0.0"
+  }
+}
