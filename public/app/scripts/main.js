@@ -1,4 +1,4 @@
-var myApp = angular.module('baisMordechai', ['ui.router']);
+var myApp = angular.module('baisMordechai', ['ngUpload']);
 
 myApp.controller('FilesController', function($scope, $http) {
 
@@ -25,4 +25,8 @@ myApp.controller('FilesController', function($scope, $http) {
 		console.log("save");
 		$http.put("/files/" + $scope.activeFile.id, $scope.activeFile);
 	};
+	$scope.complete = function(content) {
+      console.log(content); // process content
+    };
+	
 });
