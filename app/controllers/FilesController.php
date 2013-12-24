@@ -76,7 +76,7 @@ class FilesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		
 	}
 
 	/**
@@ -87,7 +87,8 @@ class FilesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$updatedFile = Input::all();
+		return $this->file->updateFile($id, $updatedFile);
 	}
 
 	/**

@@ -34,9 +34,12 @@
 				</div>
 			</div>
 			<div class="col-md-8">
-				{{activeFile.title}}
+				<form>
+					<input type="text" ng-model="activeFile.title"/>
+					<textarea ng-model="activeFile.description"></textarea>
+					<button ng-click="submit()">Save</button>
+				</form>
 			</div>
-			
 		</div>
 	</div>
 	<script type="text/javascript" src="app/vendor/angular/angular.js"></script>

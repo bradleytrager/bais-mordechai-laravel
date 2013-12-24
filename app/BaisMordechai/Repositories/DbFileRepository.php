@@ -25,7 +25,13 @@ class DbFileRepository implements FileRepositoryInterface{
 
 		return $files->get();
 	}
-	
+	public function updateFile($id, $updatedFile){
+		$file = File::find($id);
+		//dd($file);
+		$file->fill($updatedFile);
+		$file->save();
+		return "saved";
+	}
 
 }
 
