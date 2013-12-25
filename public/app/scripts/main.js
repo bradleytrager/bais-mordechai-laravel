@@ -1,6 +1,18 @@
-var myApp = angular.module('baisMordechai', ['angularFileUpload']);
-
-myApp.controller('FilesController', function($scope, $http, $upload) {
+var myApp = angular.module('baisMordechai', ['angularFileUpload', 'ngRoute']);
+myApp.config(function($routeProvider) {
+    $routeProvider
+      .when('/dashboard',
+      {
+        templateUrl: "app/templates/dashboard.html",
+        controller: "FilesController"
+      })
+      .otherwise({
+        redirectTo: "/dashboard"
+      });
+});
+myAppStuff = {};
+myAppStuff.controllers = {};
+myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeout) {
 	$scope.getFiles = function() {
 		$http.get('/files').success(function(files) {
 			$scope.files = files;
@@ -25,15 +37,22 @@ myApp.controller('FilesController', function($scope, $http, $upload) {
 
 	$scope.submit = function() {
 		console.log("save");
-		$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function(){
+		if($scope.activeFile){
+			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function(){
 			$scope.getFiles();
 		});
+		}
+		else{
+			//TODO: create new file
+		}
+		
 	};
 	$scope.complete = function(content) {
 		console.log(content); // process content
 	};
 
 	$scope.onFileSelect = function($files) {
+		$scope.uploadProgressDisplay = 1;
 		//$files: an array of files selected, each file has name, size, and type.
 		for (var i = 0; i < $files.length; i++) {
 			var file = $files[i];
@@ -49,14 +68,25 @@ myApp.controller('FilesController', function($scope, $http, $upload) {
 				/* customize how data is added to formData. See #40#issuecomment-28612000 for example */
 				//formDataAppender: function(formData, key, val){} 
 			}).progress(function(evt) {
-				console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+				var progress = parseInt(100.0 * evt.loaded / evt.total);
+				$scope.uploadProgressDisplay = progress;
+				
 			}).success(function(data, status, headers, config) {
 				// file is uploaded successfully
 				$scope.tempFileName = data;
-			});
+			})
 			//.error(...)
-			//.then(success, error, progress); 
+			.then(function(){
+				$timeout(function(){
+					$scope.uploadProgressDisplay = 0;
+					console.log($scope.uploadProgressDisplay);
+					
+				}, 2000);
+				
+			});
 		}
 	};
+	$scope.uploadProgressDisplay = 0;
+};
 
-});
+myApp.controller(myAppStuff.controllers);
