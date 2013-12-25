@@ -54,7 +54,11 @@ class FilesController extends \BaseController {
 	 */
 	public function store()
 	{
-		Input::file('file')->move('uploads');
+		if (Input::hasFile('file'))
+		{
+			return $this->file->saveUploadedFile();
+		}
+		
 	}
 
 	/**
@@ -87,7 +91,6 @@ class FilesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-
 		$updatedFile = Input::all();
 		return $this->file->updateFile($id, $updatedFile);
 	}

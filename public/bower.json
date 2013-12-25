@@ -11,6 +11,8 @@
   "dependencies": {
     "angular": "git://github.com/angular/bower-angular.git#~1.2.0-rc.2",
     "angular-ui-router": "git://github.com/angular-ui/ui-router.git#~0.2.0",
-    "bootstrap": "git://github.com/twbs/bootstrap.git#~3.0.0"
+    "bootstrap": "git://github.com/twbs/bootstrap.git#~3.0.0",
+    "bootstrap-jasny": "git://github.com/jasny/bootstrap.git",
+    "ng-file-upload git":"//github.com/danialfarid/angular-file-upload-bower.git"
   }
 }

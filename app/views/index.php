@@ -29,27 +29,31 @@
 					<a href="" class="list-group-item" ng-class="{active: isActive(file)}" 
 					ng-repeat="file in files | filter:search |orderBy:'title'"
 					ng-click="getFile(file.id)">
-						{{ file.title }}
-					</a>
-				</div>
+					{{ file.title }}
+				</a>
 			</div>
-			<div class="col-md-8">
-				<form>
-					<input type="text" ng-model="activeFile.title"/>
-					<textarea ng-model="activeFile.description"></textarea>
-					
-				</form>
-				<form action="/files" ng-upload="completed(content)"> 
+		</div>
+		<div class="col-md-8">
+			<form>
+				<input type="text" ng-model="activeFile.title"/>
+				<textarea ng-model="activeFile.description"></textarea>
+
+			</form>
+			<form action="/files" ng-upload="completed(content)"> 
 				<input type="file" name="file"></input>
 				<button style='cursor: pointer' upload-submit ng-click="submit()">Save</button>
 			</form>
-			</div>
-			
+			<input type="file" ng-file-select="onFileSelect($files)" >
+			<button ng-click="upload.abort()">Cancel Upload</button>
 		</div>
+
 	</div>
-	<script type="text/javascript" src="app/vendor/angular/angular.js"></script>
-	<script type="text/javascript" src="app/vendor/angular-ui-router/release/angular-ui-router.js"></script>
-	<script type="text/javascript" src="app/vendor/ngUpload/ng-upload.js"></script>
-	<script type="text/javascript" src="app/scripts/main.js"></script>
+</div>
+<script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload-shim.min.js"></script> 
+<script type="text/javascript" src="app/vendor/angular/angular.js"></script>
+<script type="text/javascript" src="app/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload.js"></script>
+<script type="text/javascript" src="app/vendor/ngUpload/ng-upload.js"></script>
+<script type="text/javascript" src="app/scripts/main.js"></script>
 </body>
 </html>
