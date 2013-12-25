@@ -13,6 +13,7 @@
     "angular-ui-router": "git://github.com/angular-ui/ui-router.git#~0.2.0",
     "bootstrap": "git://github.com/twbs/bootstrap.git#~3.0.0",
     "bootstrap-jasny": "git://github.com/jasny/bootstrap.git",
-    "ng-file-upload git":"//github.com/danialfarid/angular-file-upload-bower.git"
+    "ng-file-upload":"git://github.com/danialfarid/angular-file-upload-bower.git",
+    "angular-bootstrap": "git://github.com/angular-ui/bootstrap-bower.git"
   }
 }
