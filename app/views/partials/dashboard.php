@@ -17,14 +17,15 @@
 			</div>
 		</div>
 		<div class="col-md-8">
-			<form role="form">
-				<div class="form-group" ng-show="activeFile.id">
-					<button class="btn btn-default" ng-click="clearActiveFile()">New</button>
-				</div>
+			<div class="form-group" ng-show="activeFile.id">
+				<button class="btn btn-default" ng-click="clearActiveFile()">New</button>
+			</div>
+			<form role="form" ng-submit="submit()">
+				
 				<div class="form-group" >
 					<span class="btn btn-default btn-file">
 						Upload File
-						<input type="file" ng-file-select="onFileSelect($files)" >
+						<input type="file" ng-file-select="onFileSelect($files)" onchange="angular.element(this).scope().setFile(this)">
 					</span>	
 					<span>{{activeFile.filename}}</span>
 				</div>
@@ -49,7 +50,7 @@
 					<label for="descriptionInput">Description</label>
 					<textarea id="descriptionInput" class="form-control" ng-model="activeFile.description" style="height:150px"></textarea>			
 				</div>
-				<button class="btn btn-default" ng-click="submit()">Save</button>
+				<input type="submit" value="Save" class="btn btn-default" />
 			</form>
 		</div>
 	</div>

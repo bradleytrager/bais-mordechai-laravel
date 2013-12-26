@@ -1,4 +1,4 @@
-myApp.directive('jplayer', function($http, $templateCache, $compile, $parse) {
+app.directive('jplayer', function($http, $templateCache, $compile, $parse) {
 	return {
 		restrict: 'E',
 		scope:{

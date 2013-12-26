@@ -1,10 +1,32 @@
-myAppStuff.controllers.AppController = function($rootScope) {
+app.controller('AppController', function($rootScope) {
 	$rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
 		console.log(rejection);
 	});
-};
+});
+app.controller('ShiurController', function($scope, $stateParams, $http, $location) {
+	$scope.id = $stateParams.id;
+	$scope.file = {};
+	$scope.getFiles = function() {
+		$http.get('/files').success(function(files) {
+			$scope.files = files;
+		});
+	};
+	$scope.getFile = function() {
+		$http.get('/files/' + $scope.id).success(function(file) {
+			var path = 'uploads/';
+			file.filename = path + file.filename;
+			$scope.file = file;
+		});
+	};
+	$scope.getFile();
+	$scope.getFiles();
+	$scope.selectFile = function(file){
+		 $location.path( "/shiur/"+ file.id );
+	};
+});
 
-myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeout) {
+app.controller('FilesController', function($scope, $http, $upload, $timeout) {
+	$scope.activeFile = {};
 	$scope.getFiles = function() {
 		$http.get('/files').success(function(files) {
 			$scope.files = files;
@@ -14,12 +36,15 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 	$scope.getFiles();
 
 	$scope.selectFile = function(file) {
-		$scope.activeFileCopy = angular.copy(file);
-		$scope.activeFile = file;
+		$scope.activeFile = angular.copy(file);
 	};
 
-	$scope.clearActiveFile = function(){
-		$scope.activeFile = null;
+	$scope.setFile = function(file) {
+		var filename = $(file).val().replace(/C:\\fakepath\\/i, '');
+		$scope.activeFile.filename = filename;
+	};
+	$scope.clearActiveFile = function() {
+		$scope.activeFile = {};
 	};
 
 	$scope.isActive = function(file) {
@@ -29,13 +54,13 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 	};
 
 	$scope.submit = function() {
-		console.log("save");
+		console.log($scope.activeFile);
 		if ($scope.activeFile.id) {
 			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function() {
 				$scope.getFiles();
 			});
 		} else {
-			$http.post("/files" , $scope.activeFile).success(function() {
+			$http.post("/files", $scope.activeFile).success(function() {
 				$scope.getFiles();
 			});
 		}
@@ -82,7 +107,4 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 		}
 	};
 	$scope.uploadProgressDisplay = 0;
-};
-
-
-myApp.controller(myAppStuff.controllers);
+});

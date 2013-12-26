@@ -1,6 +1,6 @@
-var myApp = angular.module('baisMordechai', ['angularFileUpload', 'ui.router']);
+var app = angular.module('baisMordechai', ['angularFileUpload', 'ui.router']);
 
-myApp.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('dashboard', {
 			url: '/dashboard',
@@ -9,10 +9,13 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('shiurim', {
 			url: '/shiurim',
-			templateUrl: 'app/templates/shiurim.html'
-		});
-	$urlRouterProvider.otherwise("/dashboard");
+			templateUrl: 'app/templates/shiurim.html',
+			controller: "ShiurController"
+		})
+		.state('shiur', {
+                url: '/shiur/:id',
+                templateUrl: 'app/templates/shiur.html',
+                controller: 'ShiurController'
+            });
+	$urlRouterProvider.otherwise("/shiurim");
 });
-
-myAppStuff = {};
-myAppStuff.controllers = {};

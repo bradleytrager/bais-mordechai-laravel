@@ -26,6 +26,11 @@
 		cursor: inherit;
 		display: block;
 	}
+	.col-centered{
+		float: none;
+		margin: 0 auto;
+	}
+
 	</style>
 </head>
 <body>
@@ -44,17 +49,17 @@
 	<div class="container">
 		<ui-view></ui-view>
 	</div>
-<script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
-<script type="text/javascript" src="app/vendor/bootstrap/dist/js/bootstrap.js"></script>
-<script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload-shim.min.js"></script> 
-<script type="text/javascript" src="app/vendor/angular/angular.js"></script>
-<script type="text/javascript" src="app/vendor/angular-route/angular-route.js"></script>
-<script type="text/javascript" src="app/vendor/angular-ui-router/release/angular-ui-router.js"></script>
-<script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload.js"></script>
-<script type="text/javascript" src="app/vendor/jplayer/jquery.jplayer/jquery.jplayer.js"></script>
-<script type="text/javascript" src="app/scripts/main.js"></script>
-<script type="text/javascript" src="app/scripts/directives.js"></script>
-<script type="text/javascript" src="app/scripts/controllers.js"></script>
+	<script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
+	<script type="text/javascript" src="app/vendor/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload-shim.min.js"></script> 
+	<script type="text/javascript" src="app/vendor/angular/angular.js"></script>
+	<script type="text/javascript" src="app/vendor/angular-route/angular-route.js"></script>
+	<script type="text/javascript" src="app/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+	<script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload.js"></script>
+	<script type="text/javascript" src="app/vendor/jplayer/jquery.jplayer/jquery.jplayer.js"></script>
+	<script type="text/javascript" src="app/scripts/main.js"></script>
+	<script type="text/javascript" src="app/scripts/directives.js"></script>
+	<script type="text/javascript" src="app/scripts/controllers.js"></script>
 
 </body>
 

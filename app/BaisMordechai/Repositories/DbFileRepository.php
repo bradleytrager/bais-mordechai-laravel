@@ -45,7 +45,7 @@ class DbFileRepository implements FileRepositoryInterface{
 		$originalFileName = $file->getClientOriginalName();
 		$clientOriginalExtension = $file->getClientOriginalExtension();
 		$tempFileName = $timestamp.$originalFileName;
-		$file->move('uploads', $filename);
+		$file->move('public/uploads', $filename);
 		return $tempFileName;
 	}
 
