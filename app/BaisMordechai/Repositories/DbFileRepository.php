@@ -25,21 +25,27 @@ class DbFileRepository implements FileRepositoryInterface{
 
 		return $files->get();
 	}
+
+	public function createFile($newFile){
+		$file = new File();
+		$file->fill($newFile);
+		$file->save();
+		return "saved";
+	}
+
 	public function updateFile($id, $updatedFile){
 		$file = File::find($id);
-		//dd($file);
 		$file->fill($updatedFile);
 		$file->save();
 		return "saved";
 	}
 
-	public function saveUploadedFile(){
-		$file = \Input::file('file');
+	public function saveUploadedFile($file, $filename){
 		$timestamp = gettimeofday()['sec'];
 		$originalFileName = $file->getClientOriginalName();
 		$clientOriginalExtension = $file->getClientOriginalExtension();
 		$tempFileName = $timestamp.$originalFileName;
-		$file->move('uploads', $tempFileName);
+		$file->move('uploads', $filename);
 		return $tempFileName;
 	}
 

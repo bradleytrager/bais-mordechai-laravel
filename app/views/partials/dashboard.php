@@ -18,14 +18,18 @@
 		</div>
 		<div class="col-md-8">
 			<form role="form">
-				<div class="form-group">
+				<div class="form-group" ng-show="activeFile.id">
+					<button class="btn btn-default" ng-click="clearActiveFile()">New</button>
+				</div>
+				<div class="form-group" >
 					<span class="btn btn-default btn-file">
-						Upload New File 
+						Upload File
 						<input type="file" ng-file-select="onFileSelect($files)" >
 					</span>	
+					<span>{{activeFile.filename}}</span>
 				</div>
 				<div class="progress progress-striped active" ng-show="uploadProgressDisplay">
-					<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+					<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadProgressDisplay}}%">
 						<span class="sr-only">45% Complete</span>
 					</div>
 				</div>	

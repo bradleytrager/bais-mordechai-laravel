@@ -7,8 +7,9 @@ interface FileRepositoryInterface{
 	public function getAll();
 	public function getFileById($id);
 	public function getFilesByCategory($category, $subcategory);
+	public function createFile($newFile);
 	public function updateFile($id, $file);
-	public function saveUploadedFile();
+	public function saveUploadedFile($file, $filename);
 }
 
 

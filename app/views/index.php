@@ -45,7 +45,7 @@
 		<ui-view></ui-view>
 	</div>
 <script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
-<script type="text/javascript" src="app/js/bootstrap.js"></script>
+<script type="text/javascript" src="app/vendor/bootstrap/dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload-shim.min.js"></script> 
 <script type="text/javascript" src="app/vendor/angular/angular.js"></script>
 <script type="text/javascript" src="app/vendor/angular-route/angular-route.js"></script>

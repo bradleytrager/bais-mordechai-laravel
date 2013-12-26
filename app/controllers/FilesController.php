@@ -56,9 +56,26 @@ class FilesController extends \BaseController {
 	{
 		if (Input::hasFile('file'))
 		{
-			return $this->file->saveUploadedFile();
+			$filename = Input::file('file')->getClientOriginalName();
+			$id = Input::get('id');
+			if($id){
+				$file = File::find($id);
+				$file->filename = $filename;
+				$this->file->updateFile($id, $file->getAttributes());
+			}
+			else{
+				$newFile = new File();
+				$newFile->filename = $filename;
+				$newFile->title = $filename;
+				$this->file->createFile($newFile->getAttributes());
+			}
+			$file = Input::file('file');
+			$this->file->saveUploadedFile($file, $filename);
 		}
-		
+		else{
+			$newFile = Input::all();
+			return $this->file->createFile($newFile);
+		}
 	}
 
 	/**

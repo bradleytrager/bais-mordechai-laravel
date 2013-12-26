@@ -14,7 +14,12 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 	$scope.getFiles();
 
 	$scope.selectFile = function(file) {
-		$scope.activeFile = angular.copy(file);
+		$scope.activeFileCopy = angular.copy(file);
+		$scope.activeFile = file;
+	};
+
+	$scope.clearActiveFile = function(){
+		$scope.activeFile = null;
 	};
 
 	$scope.isActive = function(file) {
@@ -25,12 +30,14 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 
 	$scope.submit = function() {
 		console.log("save");
-		if ($scope.activeFile) {
+		if ($scope.activeFile.id) {
 			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function() {
 				$scope.getFiles();
 			});
 		} else {
-			//TODO: create new file
+			$http.post("/files" , $scope.activeFile).success(function() {
+				$scope.getFiles();
+			});
 		}
 
 	};
@@ -47,7 +54,7 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 				url: 'files', //upload.php script, node.js route, or servlet url
 				// method: POST or PUT,
 				// headers: {'headerKey': 'headerValue'}, withCredential: true,
-				//data: {myObj: $scope.myModelObj},
+				data: $scope.activeFile,
 				file: file
 				// file: $files, //upload multiple files, this feature only works in HTML5 FromData browsers
 				/* set file formData name for 'Content-Desposition' header. Default: 'file' */
@@ -69,6 +76,7 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 					console.log($scope.uploadProgressDisplay);
 
 				}, 2000);
+				$scope.getFiles();
 
 			});
 		}
