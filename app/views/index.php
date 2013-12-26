@@ -1,16 +1,12 @@
-<html ng-app="baisMordechai">
+<html ng-app="baisMordechai" ng-controller="AppController">
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="app/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="app/vendor/jplayer/skin/blue.monday/jplayer.blue.monday.css"  />
+
 	<style type="text/css">
 	body{
 		padding-top: 80px;
-	}
-	.files-table tr{
-		cursor: pointer;
-	}
-	.files-table tr:hover a{
-		text-decoration: underline;
 	}
 	.btn-file {
 		position: relative;
@@ -42,18 +38,10 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">BaisMordechai Admin</a>
+			<a class="navbar-brand" href="#">BaisMordechai</a>
 		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Browse/Edit</a></li>
-				<li><a href="#">Add New</a></li>
-			</ul>
-		</div> -->
 	</nav>
-	<ng-view></ng-view>
-	
+	<ui-view></ui-view>
 <script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
 <script type="text/javascript" src="app/js/bootstrap.js"></script>
 <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload-shim.min.js"></script> 
@@ -61,6 +49,7 @@
 <script type="text/javascript" src="app/vendor/angular-route/angular-route.js"></script>
 <script type="text/javascript" src="app/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload.js"></script>
+<script type="text/javascript" src="app/vendor/jplayer/jquery.jplayer/jquery.jplayer.js"></script>
 <script type="text/javascript" src="app/scripts/main.js"></script>
 </body>
 </html>

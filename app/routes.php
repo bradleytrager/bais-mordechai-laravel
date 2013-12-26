@@ -17,3 +17,6 @@ Route::resource('files', 'FilesController');
 Route::get('shiurim', 'FilesController@getShiurim');
 Route::get('music', 'FilesController@getMusic');
 Route::get('leading-services', 'FilesController@getLeadingServices');
+Route::get('dashboard', function(){
+	return View::make('partials/dashboard');
+});

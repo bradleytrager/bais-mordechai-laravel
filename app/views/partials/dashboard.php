@@ -12,7 +12,7 @@
 				<div class="list-group"  >
 					<a href="" class="list-group-item" ng-class="{active: isActive(file)}" 
 					ng-repeat="file in files | filter:search |orderBy:'title'"
-					ng-click="getFile(file.id)">
+					ng-click="selectFile(file)">
 					{{ file.title }}
 				</a>
 			</div>

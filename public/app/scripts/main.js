@@ -1,17 +1,27 @@
-var myApp = angular.module('baisMordechai', ['angularFileUpload', 'ngRoute']);
-myApp.config(function($routeProvider) {
-    $routeProvider
-      .when('/dashboard',
-      {
-        templateUrl: "app/templates/dashboard.html",
-        controller: "FilesController"
-      })
-      .otherwise({
-        redirectTo: "/dashboard"
-      });
+var myApp = angular.module('baisMordechai', ['angularFileUpload', 'ui.router']);
+
+myApp.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider
+		.state('dashboard', {
+			url: '/dashboard',
+			templateUrl: '/dashboard',
+			controller: "FilesController"
+		})
+		.state('shiurim', {
+			url: '/shiurim',
+			templateUrl: 'app/templates/shiurim.html'
+		});
+	$urlRouterProvider.otherwise("/dashboard");
 });
+
 myAppStuff = {};
 myAppStuff.controllers = {};
+myAppStuff.controllers.AppController = function($rootScope) {
+	$rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
+		console.log(rejection);
+	});
+};
+
 myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeout) {
 	$scope.getFiles = function() {
 		$http.get('/files').success(function(files) {
@@ -21,12 +31,8 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 
 	$scope.getFiles();
 
-
-
-	$scope.getFile = function(fileId) {
-		$http.get('/files/' + fileId).success(function(file) {
-			$scope.activeFile = file;
-		});
+	$scope.selectFile = function(file) {
+		$scope.activeFile = angular.copy(file);
 	};
 
 	$scope.isActive = function(file) {
@@ -37,15 +43,14 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 
 	$scope.submit = function() {
 		console.log("save");
-		if($scope.activeFile){
-			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function(){
-			$scope.getFiles();
-		});
-		}
-		else{
+		if ($scope.activeFile) {
+			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function() {
+				$scope.getFiles();
+			});
+		} else {
 			//TODO: create new file
 		}
-		
+
 	};
 	$scope.complete = function(content) {
 		console.log(content); // process content
@@ -70,23 +75,50 @@ myAppStuff.controllers.FilesController = function($scope, $http, $upload, $timeo
 			}).progress(function(evt) {
 				var progress = parseInt(100.0 * evt.loaded / evt.total);
 				$scope.uploadProgressDisplay = progress;
-				
+
 			}).success(function(data, status, headers, config) {
 				// file is uploaded successfully
 				$scope.tempFileName = data;
 			})
 			//.error(...)
-			.then(function(){
-				$timeout(function(){
+			.then(function() {
+				$timeout(function() {
 					$scope.uploadProgressDisplay = 0;
 					console.log($scope.uploadProgressDisplay);
-					
+
 				}, 2000);
-				
+
 			});
 		}
 	};
 	$scope.uploadProgressDisplay = 0;
 };
+
+myApp.directive('jplayer', function($http, $templateCache, $compile, $parse) {
+	return {
+		restrict: 'E',
+		link: function(scope, element, attrs) {
+
+			$http.get('app/templates/jplayer.html', {
+				cache: $templateCache
+			}).success(function(tplContent) {
+				element.replaceWith($compile(tplContent)(scope));
+				element.jPlayer({
+					ready: function(event) {
+						$(this).jPlayer("setMedia", {
+							m4a: "http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a",
+							oga: "http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
+						});
+					},
+					swfPath: "js",
+					supplied: "m4a, oga",
+					wmode: "window",
+					smoothPlayBar: true,
+					keyEnabled: true
+				});
+			});
+		}
+	}
+});
 
 myApp.controller(myAppStuff.controllers);
