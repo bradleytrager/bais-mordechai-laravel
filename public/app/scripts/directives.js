@@ -1,29 +1,31 @@
-app.directive('jplayer', function($http, $templateCache, $compile, $parse) {
+app.directive('jplayer', function($http, $templateCache, $compile, $parse, $rootScope) {
 	return {
 		restrict: 'E',
-		scope:{
-			title:'@'
+		scope: {
+			title: '@'
 		},
 		link: function(scope, element, attrs) {
 
 			$http.get('app/templates/jplayer.html', {
 				cache: $templateCache
 			}).success(function(tplContent) {
+				$(element).jPlayer( "destroy" );
 				element.replaceWith($compile(tplContent)(scope));
 				element.jPlayer({
 					ready: function(event) {
 						$(this).jPlayer("setMedia", {
-							m4a: attrs.src,
-							oga: "http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
+							mp3: attrs.src
 						});
 					},
 					swfPath: "app/vendor/jplayer/jquery.jplayer",
-					supplied: "m4a, oga",
+					supplied: "mp3",
 					wmode: "window",
 					smoothPlayBar: true,
 					keyEnabled: true
 				});
 			});
+
+			
 		}
 	};
 });

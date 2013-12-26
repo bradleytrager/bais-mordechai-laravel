@@ -30,7 +30,7 @@ class DbFileRepository implements FileRepositoryInterface{
 		$file = new File();
 		$file->fill($newFile);
 		$file->save();
-		return "saved";
+		return $file->getAttributes();
 	}
 
 	public function updateFile($id, $updatedFile){

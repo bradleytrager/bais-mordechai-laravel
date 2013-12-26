@@ -2,8 +2,11 @@ app.controller('AppController', function($rootScope) {
 	$rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
 		console.log(rejection);
 	});
+	$rootScope.$on("$routeChangeStart", function() {
+		console.log("start");
+	});
 });
-app.controller('ShiurController', function($scope, $stateParams, $http, $location) {
+app.controller('ShiurController', function($scope, $stateParams, $http, $location, $rootScope) {
 	$scope.id = $stateParams.id;
 	$scope.file = {};
 	$scope.getFiles = function() {
@@ -23,6 +26,9 @@ app.controller('ShiurController', function($scope, $stateParams, $http, $locatio
 	$scope.selectFile = function(file){
 		 $location.path( "/shiur/"+ file.id );
 	};
+	$rootScope.$on("$routeChangeStart", function() {
+		console.log("start");
+	});
 });
 
 app.controller('FilesController', function($scope, $http, $upload, $timeout) {
@@ -90,9 +96,9 @@ app.controller('FilesController', function($scope, $http, $upload, $timeout) {
 				var progress = parseInt(100.0 * evt.loaded / evt.total);
 				$scope.uploadProgressDisplay = progress;
 
-			}).success(function(data, status, headers, config) {
+			}).success(function(file, status, headers, config) {
 				// file is uploaded successfully
-				$scope.tempFileName = data;
+				$scope.activeFile  = file;
 			})
 			//.error(...)
 			.then(function() {
