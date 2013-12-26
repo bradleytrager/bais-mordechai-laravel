@@ -41,7 +41,9 @@
 			<a class="navbar-brand" href="#">BaisMordechai</a>
 		</div>
 	</nav>
-	<ui-view></ui-view>
+	<div class="container">
+		<ui-view></ui-view>
+	</div>
 <script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
 <script type="text/javascript" src="app/js/bootstrap.js"></script>
 <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload-shim.min.js"></script> 
@@ -51,5 +53,9 @@
 <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload.js"></script>
 <script type="text/javascript" src="app/vendor/jplayer/jquery.jplayer/jquery.jplayer.js"></script>
 <script type="text/javascript" src="app/scripts/main.js"></script>
+<script type="text/javascript" src="app/scripts/directives.js"></script>
+<script type="text/javascript" src="app/scripts/controllers.js"></script>
+
 </body>
+
 </html>
