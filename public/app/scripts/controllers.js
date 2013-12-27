@@ -11,7 +11,7 @@ app.controller('ItemController', function($scope, $stateParams, $http, $location
 	$scope.$state = $state;
 	$scope.file = {};
 	$scope.getFiles = function() {
-		$http.get('/files').success(function(files) {
+		$http.get('/files/' + $scope.category + '/' + $scope.subcategory).success(function(files) {
 			$scope.files = files;
 		});
 	};
@@ -97,6 +97,7 @@ app.controller('FilesController', function($scope, $http, $upload, $timeout) {
 
 			}).success(function(file, status, headers, config) {
 				// file is uploaded successfully
+				console.log(file);
 				$scope.activeFile  = file;
 			})
 			//.error(...)

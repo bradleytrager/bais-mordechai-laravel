@@ -18,7 +18,10 @@ class FilesController extends \BaseController {
 	}
 
 
-	
+	public function get($category="", $subcategory=""){
+		return $this->file->getFilesByCategory($category, $subcategory);
+	}
+
 	public function getShiurim(){
 		$subcategory = null;
 
@@ -56,7 +59,10 @@ class FilesController extends \BaseController {
 	{
 		if (Input::hasFile('file'))
 		{
+			$file = Input::file('file');
 			$filename = Input::file('file')->getClientOriginalName();
+			$this->file->saveUploadedFile($file, $filename);
+			
 			$id = Input::get('id');
 			if($id){
 				$file = File::find($id);
@@ -69,8 +75,6 @@ class FilesController extends \BaseController {
 				$newFile->title = $filename;
 				return $this->file->createFile($newFile->getAttributes());
 			}
-			$file = Input::file('file');
-			return $this->file->saveUploadedFile($file, $filename);
 		}
 		else{
 			$newFile = Input::all();

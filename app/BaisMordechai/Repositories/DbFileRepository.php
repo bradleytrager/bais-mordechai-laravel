@@ -41,12 +41,10 @@ class DbFileRepository implements FileRepositoryInterface{
 	}
 
 	public function saveUploadedFile($file, $filename){
-		$timestamp = gettimeofday()['sec'];
 		$originalFileName = $file->getClientOriginalName();
 		$clientOriginalExtension = $file->getClientOriginalExtension();
-		$tempFileName = $timestamp.$originalFileName;
 		$file->move('public/uploads', $filename);
-		return $tempFileName;
+		return "file saved";
 	}
 
 }

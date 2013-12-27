@@ -14,6 +14,8 @@ Route::get('/', function(){
 	return View::make('index');
 });
 Route::resource('files', 'FilesController');
+
+Route::get('files/{category?}/{subcategory?}', 'FilesController@get');
 Route::get('shiurim', 'FilesController@getShiurim');
 Route::get('music', 'FilesController@getMusic');
 Route::get('leading-services', 'FilesController@getLeadingServices');
