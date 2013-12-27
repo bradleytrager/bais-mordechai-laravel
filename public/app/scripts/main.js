@@ -4,17 +4,37 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
 			url: '/',
-			templateUrl: 'app/templates/home.html'
+			views: {
+				'breadcrumbs': {},
+				'main-content': {
+					templateUrl: 'app/templates/home.html'
+				}
+			}
 		})
 		.state('dashboard', {
 			url: '/dashboard',
-			templateUrl: '/dashboard',
-			controller: "FilesController"
+			views: {
+				'breadcrumbs': {},
+				'main-content': {
+					templateUrl: '/dashboard',
+					controller: "FilesController"
+				}
+
+			}
+
 		})
 		.state('listen', {
 			url: '/listen/:category/:subcategory',
-			templateUrl: 'app/templates/items.html',
-			controller: 'ItemController'
+			views: {
+				'breadcrumbs': {
+					templateUrl: 'app/templates/breadcrumbs.html',
+					controller: 'BreadCrumbController'
+				},
+				'main-content': {
+					templateUrl: 'app/templates/items.html',
+					controller: 'ItemController'
+				}
+			}
 		})
 		.state('listen.item', {
 			url: '/:id',
@@ -23,23 +43,28 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('shiurim', {
 			url: '/shiurim',
-			templateUrl: 'app/templates/shiurim.html'
+			views: {
+				'breadcrumbs': {
+					templateUrl: 'app/templates/breadcrumbs.html'
+				},
+				'main-content': {
+					templateUrl: 'app/templates/shiurim.html'
+				}
+			}
 		})
-		.state('music', {
-			url: '/music',
-			templateUrl: 'app/templates/music.html'
-		})
-		.state('leading-services', {
-			url: '/leading-services',
-			templateUrl: 'app/templates/leading_services.html'
-		})
-		.state('contact', {
-			url: '/contact',
-			templateUrl: 'app/templates/contact.html'
-		})
-		.state('about', {
-			url: '/about',
-			templateUrl: 'app/templates/about.html'
+		.state('category', {
+			url: '/listen/:category',
+			views: {
+				'breadcrumbs': {
+					templateUrl: 'app/templates/breadcrumbs.html',
+					controller: 'BreadCrumbController'
+				},
+				'main-content': {
+					templateUrl: function($stateParams) {
+						return 'app/templates/' + $stateParams.category + '.html';
+					}
+				}
+			}
 		});
 	$urlRouterProvider.otherwise("/");
 });
@@ -48,8 +73,13 @@ app.filter('ucfirst', function() {
 	return function(input) {
 		var out = input.charAt(0).toUpperCase();
 		for (var i = 1; i < input.length; i++) {
+
 			var currentChar = input.charAt(i);
-			if (input.charAt(i - 1) == " ") {
+
+			if (currentChar == "_") {
+				currentChar = " ";
+			}
+			if (out.charAt(i - 1) == " ") {
 				currentChar = currentChar.toUpperCase();
 			}
 			out += currentChar;

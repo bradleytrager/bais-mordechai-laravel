@@ -47,17 +47,18 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li ui-sref-active="active"><a ui-sref="shiurim">Shiurim</a></li>
-				<li ui-sref-active="active"><a ui-sref="music">Music</a></li>
-				<li ui-sref-active="active"><a ui-sref="leading-services">Leading Services</a></li>
-				<li ui-sref-active="active"><a ui-sref="contact">Contact</a></li>
-				<li ui-sref-active="active"><a ui-sref="about">About</a></li>
+				<li ui-sref-active="active"><a ui-sref="category({category:'shiurim'})">Shiurim</a></li>
+				<li ui-sref-active="active"><a ui-sref="category({category:'music'})">Music</a></li>
+				<li ui-sref-active="active"><a ui-sref="category({category:'leading_services'})">Leading Services</a></li>
+				<li ui-sref-active="active"><a ui-sref="category({category:'contact'})">Contact</a></li>
+				<li ui-sref-active="active"><a ui-sref="category({category:'about'})">About</a></li>
 			</ul>
 
 		</div>
 	</nav>
 	<div class="container">
-		<ui-view></ui-view>
+		<div ui-view="breadcrumbs"></div>
+		<div ui-view="main-content"></div>
 	</div>
 	<script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
 	<script type="text/javascript" src="app/vendor/bootstrap/dist/js/bootstrap.js"></script>

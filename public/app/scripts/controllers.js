@@ -3,13 +3,22 @@ app.controller('AppController', function($rootScope) {
 		console.log(rejection);
 	});
 });
+app.controller('BreadCrumbController', function($scope, $stateParams) {
+	$scope.crumbs = [];
+	angular.forEach($stateParams, function(value, key) {
+		this.push(value);
 
-app.controller('ItemController', function($scope, $stateParams, $http, $location, $state) {
+	}, $scope.crumbs);
+	console.log($scope.crumbs);
+
+});
+app.controller('ItemController', function($scope, $stateParams, $http, $location, $state, $filter) {
 	$scope.id = $stateParams.id;
-	$scope.category = $stateParams.category;
-	$scope.subcategory = $stateParams.subcategory;
+	$scope.category = $filter('ucfirst')($stateParams.category);
+	$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
 	$scope.$state = $state;
 	$scope.file = {};
+	console.log($scope);
 	$scope.getFiles = function() {
 		$http.get('/files/' + $scope.category + '/' + $scope.subcategory).success(function(files) {
 			$scope.files = files;
@@ -25,9 +34,9 @@ app.controller('ItemController', function($scope, $stateParams, $http, $location
 	};
 	$scope.getFile();
 	$scope.getFiles();
-	$scope.selectFile = function(file){
+	$scope.selectFile = function(file) {
 		//TODO: get path and append Id on
-		 $location.path( "/listen/" + $scope.category + '/' + $scope.subcategory + '/' + file.id );
+		$location.path("/listen/" + $scope.category + '/' + $scope.subcategory + '/' + file.id);
 	};
 });
 
@@ -64,12 +73,12 @@ app.controller('FilesController', function($scope, $http, $upload, $timeout) {
 		if ($scope.activeFile.id) {
 			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function(file) {
 				$scope.getFiles();
-				$scope.activeFile  = file;
+				$scope.activeFile = file;
 			});
 		} else {
 			$http.post("/files", $scope.activeFile).success(function(file) {
 				$scope.getFiles();
-				$scope.activeFile  = file;
+				$scope.activeFile = file;
 			});
 		}
 
@@ -101,7 +110,7 @@ app.controller('FilesController', function($scope, $http, $upload, $timeout) {
 			}).success(function(file, status, headers, config) {
 				// file is uploaded successfully
 				console.log(file);
-				$scope.activeFile  = file;
+				$scope.activeFile = file;
 			})
 			//.error(...)
 			.then(function() {

@@ -18,11 +18,7 @@
 			</div>
 		</div>
 		<div class="col-md-8">
-			<div class="form-group" ng-show="activeFile.id">
-				<button class="btn btn-default" ng-click="clearActiveFile()">New</button>
-			</div>
 			<form role="form" ng-submit="submit()">
-				
 				<div class="form-group" >
 					<span class="btn btn-default btn-file">
 						Upload File
