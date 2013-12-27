@@ -16,7 +16,8 @@ app.controller('ItemController', function($scope, $stateParams, $http, $location
 		});
 	};
 	$scope.getFile = function() {
-		$http.get('/files/' + $scope.id).success(function(file) {
+		$http.get('/files/' + $scope.category + '/' + $scope.subcategory + '/' + $scope.id).success(function(file) {
+			//TODO redirect if nothing is returned
 			var path = 'uploads/';
 			file.filename = path + file.filename;
 			$scope.file = file;
@@ -61,12 +62,14 @@ app.controller('FilesController', function($scope, $http, $upload, $timeout) {
 	$scope.submit = function() {
 		console.log($scope.activeFile);
 		if ($scope.activeFile.id) {
-			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function() {
+			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function(file) {
 				$scope.getFiles();
+				$scope.activeFile  = file;
 			});
 		} else {
-			$http.post("/files", $scope.activeFile).success(function() {
+			$http.post("/files", $scope.activeFile).success(function(file) {
 				$scope.getFiles();
+				$scope.activeFile  = file;
 			});
 		}
 
@@ -106,7 +109,7 @@ app.controller('FilesController', function($scope, $http, $upload, $timeout) {
 					$scope.uploadProgressDisplay = 0;
 					console.log($scope.uploadProgressDisplay);
 
-				}, 2000);
+				}, 500);
 				$scope.getFiles();
 
 			});

@@ -16,14 +16,25 @@ class DbFileRepository implements FileRepositoryInterface{
 	}
 
 
-	public function getFilesByCategory($category, $subcategory=null){
+	public function getFilesByCategory($category, $subcategory){
 		$files = File::where('category', $category);
 
-		if($subcategory){
+		if($subcategory != 'all'){
 			$files->where('subcategory', $subcategory);
 		}
 
 		return $files->get();
+	}
+
+	public function getFileByCategoryAndId($category, $subcategory, $id){
+		$file = new File();
+
+		$file = $file->where('category', $category);
+		if($subcategory != 'all'){
+			$file = $file->where('subcategory', $subcategory);
+		}
+		$file = $file->where('id', $id);
+		return $file->first();
 	}
 
 	public function createFile($newFile){
@@ -37,9 +48,14 @@ class DbFileRepository implements FileRepositoryInterface{
 		$file = File::find($id);
 		$file->fill($updatedFile);
 		$file->save();
-		return "saved";
+		return $file->getAttributes();
 	}
-
+	public function getUpdateFileAttributes($id, $updatedFile){
+		$file = File::find($id);
+		$file->fill($updatedFile);
+		//$file->save();
+		return $file->getAttributes();
+	}
 	public function saveUploadedFile($file, $filename){
 		$originalFileName = $file->getClientOriginalName();
 		$clientOriginalExtension = $file->getClientOriginalExtension();

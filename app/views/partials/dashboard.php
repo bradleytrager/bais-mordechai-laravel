@@ -9,6 +9,7 @@
 					</div>
 				</form>
 				<div class="list-group"  >
+					<a class="list-group-item" ng-class="{active: !activeFile.id}" ng-click="clearActiveFile()">New</a>
 					<a href="" class="list-group-item" ng-class="{active: isActive(file)}" 
 					ng-repeat="file in files | filter:search |orderBy:'title'"
 					ng-click="selectFile(file)">

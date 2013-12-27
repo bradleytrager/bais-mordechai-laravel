@@ -13,12 +13,17 @@
 Route::get('/', function(){
 	return View::make('index');
 });
-Route::resource('files', 'FilesController');
 
-Route::get('files/{category?}/{subcategory?}', 'FilesController@get');
-Route::get('shiurim', 'FilesController@getShiurim');
-Route::get('music', 'FilesController@getMusic');
-Route::get('leading-services', 'FilesController@getLeadingServices');
+
+Route::resource('files', 'FilesController', array('only' => array('index', 'show')));
+
+Route::get('files/{category}/{subcategory}', 'FilesController@get');
+Route::get('files/{category}/{subcategory}/{id}', 'FilesController@showByCategory');
+
+Route::post('files', array('uses' => 'FilesController@store',
+                                        'as' => 'files.store'))->before('auth.basic');
+Route::put('files/{files}', array('uses' => 'FilesController@update', 'as'=>'files.update'))->before('auth.basic');
+
 Route::get('dashboard', function(){
 	return View::make('partials/dashboard');
-});
+})->before('auth.basic');

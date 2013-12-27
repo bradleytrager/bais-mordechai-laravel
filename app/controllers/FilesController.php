@@ -18,38 +18,11 @@ class FilesController extends \BaseController {
 	}
 
 
-	public function get($category="", $subcategory=""){
+	public function get($category, $subcategory){
 		return $this->file->getFilesByCategory($category, $subcategory);
 	}
 
-	public function getShiurim(){
-		$subcategory = null;
-
-		if(isset($_GET['parashah'])){
-			$subcategory=$_GET['parashah'];
-		}
-		
-		return $this->file->getFilesByCategory('Shiurim', $subcategory);
-	}
-
-	public function getMusic(){
-		return $this->file->getFilesByCategory('Music');
-	}
-
-	public function getLeadingServices(){
-		return $this->file->getFilesByCategory('Leading Services');
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
+	
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -67,7 +40,7 @@ class FilesController extends \BaseController {
 			if($id){
 				$file = File::find($id);
 				$file->filename = $filename;
-				return $this->file->updateFile($id, $file->getAttributes());
+				return $this->file->getUpdateFileAttributes($id, $file->getAttributes());
 			}
 			else{
 				$newFile = new File();
@@ -93,16 +66,11 @@ class FilesController extends \BaseController {
 		return $this->file->getFileById($id);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
+	public function showByCategory($category, $subcategory, $id)
 	{
-		
+		return $this->file->getFileByCategoryAndId($category, $subcategory, $id);
 	}
+	
 
 	/**
 	 * Update the specified resource in storage.
