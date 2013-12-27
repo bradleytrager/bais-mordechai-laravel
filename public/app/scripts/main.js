@@ -1,4 +1,4 @@
-var app = angular.module('baisMordechai', ['angularFileUpload', 'ui.router']);
+var app = angular.module('baisMordechai', ['angularFileUpload', 'ngRoute', 'ui.router']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider

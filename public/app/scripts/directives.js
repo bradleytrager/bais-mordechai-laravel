@@ -9,7 +9,7 @@ app.directive('jplayer', function($http, $templateCache, $compile, $parse, $root
 			$http.get('app/templates/jplayer.html', {
 				cache: $templateCache
 			}).success(function(tplContent) {
-				$(element).jPlayer( "destroy" );
+				
 				element.replaceWith($compile(tplContent)(scope));
 				element.jPlayer({
 					ready: function(event) {
@@ -23,6 +23,9 @@ app.directive('jplayer', function($http, $templateCache, $compile, $parse, $root
 					smoothPlayBar: true,
 					keyEnabled: true
 				});
+			});
+			$rootScope.$on("$stateChangeStart", function() {
+				$(element).jPlayer( "destroy" );
 			});
 
 			
