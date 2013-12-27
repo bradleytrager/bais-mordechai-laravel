@@ -45,6 +45,16 @@
 			</button>
 			<a class="navbar-brand" href="#">BaisMordechai</a>
 		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li ui-sref-active="active"><a ui-sref="shiurim">Shiurim</a></li>
+				<li ui-sref-active="active"><a ui-sref="music">Music</a></li>
+				<li ui-sref-active="active"><a ui-sref="leading-services">Leading Services</a></li>
+				<li ui-sref-active="active"><a ui-sref="contact">Contact</a></li>
+				<li ui-sref-active="active"><a ui-sref="about">About</a></li>
+			</ul>
+
+		</div>
 	</nav>
 	<div class="container">
 		<ui-view></ui-view>

@@ -3,8 +3,12 @@ app.controller('AppController', function($rootScope) {
 		console.log(rejection);
 	});
 });
-app.controller('ShiurController', function($scope, $stateParams, $http, $location) {
+
+app.controller('ItemController', function($scope, $stateParams, $http, $location, $state) {
 	$scope.id = $stateParams.id;
+	$scope.category = $stateParams.category;
+	$scope.subcategory = $stateParams.subcategory;
+	$scope.$state = $state;
 	$scope.file = {};
 	$scope.getFiles = function() {
 		$http.get('/files').success(function(files) {
@@ -21,9 +25,9 @@ app.controller('ShiurController', function($scope, $stateParams, $http, $locatio
 	$scope.getFile();
 	$scope.getFiles();
 	$scope.selectFile = function(file){
-		 $location.path( "/shiur/"+ file.id );
+		//TODO: get path and append Id on
+		 $location.path( "/listen/" + $scope.category + '/' + $scope.subcategory + '/' + file.id );
 	};
-	
 });
 
 app.controller('FilesController', function($scope, $http, $upload, $timeout) {
