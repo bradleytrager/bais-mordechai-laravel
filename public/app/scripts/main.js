@@ -19,6 +19,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 					templateUrl: '/dashboard',
 					controller: "DashboardController"
 				}
+			},
+			resolve: {
+				files: function(filesService) {
+					return filesService.getAllFiles();
+				}
 			}
 		})
 		.state('category', {
@@ -48,15 +53,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			},
 			resolve: {
-				files: function($stateParams, $filter, $q, filesService) {
-					var deferred = $q.defer();
+				files: function($stateParams, $filter, filesService) {
 					var category = $filter('ucfirst')($stateParams.category);
 					var subcategory = $filter('ucfirst')($stateParams.subcategory);
-					
-					filesService.getFilesByCategory(category, subcategory).then(function(files) {
-						deferred.resolve(files);
-					});
-					return deferred.promise;
+					return filesService.getFilesByCategory(category, subcategory);
 				}
 			}
 		})
@@ -64,16 +64,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/:id',
 			templateUrl: 'app/templates/item.html',
 			controller: 'FileController',
-			resolve:{
-				file:function($stateParams, $filter, $q, filesService){
-					var deferred = $q.defer();
+			resolve: {
+				file: function($stateParams, $filter, filesService) {
 					var category = $filter('ucfirst')($stateParams.category);
 					var subcategory = $filter('ucfirst')($stateParams.subcategory);
 					var id = $stateParams.id;
-					filesService.getFileByCategory(category, subcategory, id).then(function(file) {
-						deferred.resolve(file);
-					});
-					return deferred.promise;
+					return filesService.getFileByCategory(category, subcategory, id);
 				}
 			}
 		})

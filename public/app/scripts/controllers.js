@@ -16,19 +16,21 @@ app.controller('FilesController', function($scope, $stateParams, $filter, files)
 	$scope.files = files;
 });
 
-app.controller('FileController', function($scope,  file) {
+app.controller('FileController', function($scope, file) {
 	$scope.file = file;
 });
 
-app.controller('DashboardController', function($scope, $http, $upload, $timeout) {
+app.controller('DashboardController', function($scope, $http, $upload, $timeout, filesService, files) {
 	$scope.activeFile = {};
-	$scope.getFiles = function() {
-		$http.get('/files').success(function(files) {
+	$scope.files = files;
+	console.log(files);
+
+
+	var _getFiles = function() {
+		filesService.getAllFiles().then(function(files) {
 			$scope.files = files;
 		});
 	};
-
-	$scope.getFiles();
 
 	$scope.selectFile = function(file) {
 		$scope.activeFile = angular.copy(file);
@@ -38,6 +40,7 @@ app.controller('DashboardController', function($scope, $http, $upload, $timeout)
 		var filename = $(file).val().replace(/C:\\fakepath\\/i, '');
 		$scope.activeFile.filename = filename;
 	};
+
 	$scope.clearActiveFile = function() {
 		$scope.activeFile = {};
 	};
@@ -52,12 +55,12 @@ app.controller('DashboardController', function($scope, $http, $upload, $timeout)
 		console.log($scope.activeFile);
 		if ($scope.activeFile.id) {
 			$http.put("/files/" + $scope.activeFile.id, $scope.activeFile).success(function(file) {
-				$scope.getFiles();
+				_getFiles();
 				$scope.activeFile = file;
 			});
 		} else {
 			$http.post("/files", $scope.activeFile).success(function(file) {
-				$scope.getFiles();
+				_getFiles();
 				$scope.activeFile = file;
 			});
 		}
@@ -67,42 +70,40 @@ app.controller('DashboardController', function($scope, $http, $upload, $timeout)
 		console.log(content); // process content
 	};
 
-	$scope.onFileSelect = function($files) {
+	$scope.onFileSelect = function($file) {
 		$scope.uploadProgressDisplay = 1;
-		//$files: an array of files selected, each file has name, size, and type.
-		for (var i = 0; i < $files.length; i++) {
-			var file = $files[i];
-			$scope.upload = $upload.upload({
-				url: 'files', //upload.php script, node.js route, or servlet url
-				// method: POST or PUT,
-				// headers: {'headerKey': 'headerValue'}, withCredential: true,
-				data: $scope.activeFile,
-				file: file
-				// file: $files, //upload multiple files, this feature only works in HTML5 FromData browsers
-				/* set file formData name for 'Content-Desposition' header. Default: 'file' */
-				//fileFormDataName: myFile,
-				/* customize how data is added to formData. See #40#issuecomment-28612000 for example */
-				//formDataAppender: function(formData, key, val){} 
-			}).progress(function(evt) {
-				var progress = parseInt(100.0 * evt.loaded / evt.total);
-				$scope.uploadProgressDisplay = progress;
+		var file = $file[0];
+		console.log("filename", file.name);
+		$scope.upload = $upload.upload({
+			url: 'files', //upload.php script, node.js route, or servlet url
+			// method: POST or PUT,
+			// headers: {'headerKey': 'headerValue'}, withCredential: true,
+			data: $scope.activeFile,
+			file: file
+			// file: $files, //upload multiple files, this feature only works in HTML5 FromData browsers
+			/* set file formData name for 'Content-Desposition' header. Default: 'file' */
+			//fileFormDataName: myFile,
+			/* customize how data is added to formData. See #40#issuecomment-28612000 for example */
+			//formDataAppender: function(formData, key, val){} 
+		}).progress(function(evt) {
+			var progress = parseInt(100.0 * evt.loaded / evt.total, 10);
+			$scope.uploadProgressDisplay = progress;
 
-			}).success(function(file, status, headers, config) {
-				// file is uploaded successfully
-				console.log(file);
-				$scope.activeFile = file;
-			})
-			//.error(...)
-			.then(function() {
-				$timeout(function() {
-					$scope.uploadProgressDisplay = 0;
-					console.log($scope.uploadProgressDisplay);
+		}).success(function(file, status, headers, config) {
+			// file is uploaded successfully
+			console.log(file);
+			//$scope.activeFile = file;
+			$scope.activeFile.filename = file[0].name;
+		})
+		//.error(...)
+		.then(function() {
+			$timeout(function() {
+				$scope.uploadProgressDisplay = 0;
+				console.log($scope.uploadProgressDisplay);
 
-				}, 500);
-				$scope.getFiles();
-
-			});
-		}
+			}, 500);
+			_getFiles();
+		});
 	};
 	$scope.uploadProgressDisplay = 0;
 });
