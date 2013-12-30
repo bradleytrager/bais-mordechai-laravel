@@ -17,11 +17,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				'breadcrumbs': {},
 				'main-content': {
 					templateUrl: '/dashboard',
-					controller: "FilesController"
+					controller: "DashboardController"
 				}
-
 			}
-
 		})
 		.state('category', {
 			url: '/listen/:category',
@@ -46,15 +44,38 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				},
 				'main-content': {
 					templateUrl: 'app/templates/items.html',
-					controller: 'ItemController'
+					controller: 'FilesController'
 				}
-
+			},
+			resolve: {
+				files: function($stateParams, $filter, $q, filesService) {
+					var deferred = $q.defer();
+					var category = $filter('ucfirst')($stateParams.category);
+					var subcategory = $filter('ucfirst')($stateParams.subcategory);
+					
+					filesService.getFilesByCategory(category, subcategory).then(function(files) {
+						deferred.resolve(files);
+					});
+					return deferred.promise;
+				}
 			}
 		})
 		.state('listen.item', {
 			url: '/:id',
 			templateUrl: 'app/templates/item.html',
-			controller: 'ItemController'
+			controller: 'FileController',
+			resolve:{
+				file:function($stateParams, $filter, $q, filesService){
+					var deferred = $q.defer();
+					var category = $filter('ucfirst')($stateParams.category);
+					var subcategory = $filter('ucfirst')($stateParams.subcategory);
+					var id = $stateParams.id;
+					filesService.getFileByCategory(category, subcategory, id).then(function(file) {
+						deferred.resolve(file);
+					});
+					return deferred.promise;
+				}
+			}
 		})
 		.state('page', {
 			url: '/page/:page',

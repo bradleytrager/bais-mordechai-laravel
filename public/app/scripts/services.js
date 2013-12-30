@@ -1,4 +1,4 @@
-app.service("files", function($http, $q) {
+app.service("filesService", function($http, $q) {
 	this.getFileByCategory = function(category, subcategory, id) {
 		var deferred = $q.defer();
 

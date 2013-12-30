@@ -9,38 +9,18 @@ app.controller('BreadCrumbController', function($scope, $stateParams) {
 		this.push(value);
 
 	}, $scope.crumbs);
-	console.log($scope.crumbs);
-
 });
-app.controller('ItemController', function($scope, $stateParams, $http, $location, $state, $filter, files) {
-	
-	$scope.id = $stateParams.id;
-	$scope.category = $filter('ucfirst')($stateParams.category);
+
+app.controller('FilesController', function($scope, $stateParams, $filter, files) {
 	$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
-	
-	$scope.file = {};
-	$scope.files = [];
-
-	$scope.getFiles = function() {
-		files.getFilesByCategory($scope.category, $scope.subcategory).then(function(files){
-			$scope.files = files;
-		});
-	};
-	$scope.getFile = function() {
-		files.getFileByCategory($scope.category, $scope.subcategory, $scope.id).then(function(file){
-			$scope.file = file;
-		});
-	};
-	
-	$scope.getFiles();
-	
-	if($scope.category && $scope.subcategory && $scope.id){
-		$scope.getFile();
-	}
-
+	$scope.files = files;
 });
 
-app.controller('FilesController', function($scope, $http, $upload, $timeout) {
+app.controller('FileController', function($scope,  file) {
+	$scope.file = file;
+});
+
+app.controller('DashboardController', function($scope, $http, $upload, $timeout) {
 	$scope.activeFile = {};
 	$scope.getFiles = function() {
 		$http.get('/files').success(function(files) {
