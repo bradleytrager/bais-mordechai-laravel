@@ -12,32 +12,32 @@ app.controller('BreadCrumbController', function($scope, $stateParams) {
 	console.log($scope.crumbs);
 
 });
-app.controller('ItemController', function($scope, $stateParams, $http, $location, $state, $filter) {
+app.controller('ItemController', function($scope, $stateParams, $http, $location, $state, $filter, files) {
+	
 	$scope.id = $stateParams.id;
 	$scope.category = $filter('ucfirst')($stateParams.category);
 	$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
-	$scope.$state = $state;
+	
 	$scope.file = {};
-	console.log($scope);
+	$scope.files = [];
+
 	$scope.getFiles = function() {
-		$http.get('/files/' + $scope.category + '/' + $scope.subcategory).success(function(files) {
+		files.getFilesByCategory($scope.category, $scope.subcategory).then(function(files){
 			$scope.files = files;
 		});
 	};
 	$scope.getFile = function() {
-		$http.get('/files/' + $scope.category + '/' + $scope.subcategory + '/' + $scope.id).success(function(file) {
-			//TODO redirect if nothing is returned
-			var path = 'uploads/';
-			file.filename = path + file.filename;
+		files.getFileByCategory($scope.category, $scope.subcategory, $scope.id).then(function(file){
 			$scope.file = file;
 		});
 	};
-	$scope.getFile();
+	
 	$scope.getFiles();
-	$scope.selectFile = function(file) {
-		//TODO: get path and append Id on
-		$location.path("/listen/" + $scope.category + '/' + $scope.subcategory + '/' + file.id);
-	};
+	
+	if($scope.category && $scope.subcategory && $scope.id){
+		$scope.getFile();
+	}
+
 });
 
 app.controller('FilesController', function($scope, $http, $upload, $timeout) {

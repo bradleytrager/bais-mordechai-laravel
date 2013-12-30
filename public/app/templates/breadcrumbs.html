@@ -1,0 +1,8 @@
+<ol class="breadcrumb">
+	<li><a href="#/">Home</a></li>
+  <li ng-repeat="crumb in crumbs">
+  	<a ui-sref="category({category:'{{crumb}}'})" ng-if="!$last">{{crumb | ucfirst}}</a>
+  	<span ng-if="$last">{{crumb | ucfirst}}</span>
+  </li>
+
+</ol>
