@@ -23,8 +23,30 @@ app.service("filesService", function($http, $q) {
 	};
 
 	this.getFileById = function(id) {
-		return $http.get('/files/' + id).then(function(response) {
+		if (id) {
+			return $http.get('/files/' + id).then(function(response) {
+				return response.data;
+			});
+		}
+		else{
+			return {};//In this case we are creating a new file
+		}
+
+	};
+
+	this.createFile = function(file) {
+		return $http.post("/files", file).then(function(response) {
 			return response.data;
 		});
+	};
+
+	this.updateFile = function(file) {
+		return $http.put("/files/" + file.id, file).then(function(response) {
+			return response.data;
+		});
+	};
+
+	this.uploadFile = function(file) {
+
 	};
 });

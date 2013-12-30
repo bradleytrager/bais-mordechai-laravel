@@ -10,7 +10,7 @@ interface FileRepositoryInterface{
 	public function getFileByCategoryAndId($category, $subcategory, $id);
 	public function createFile($newFile);
 	public function updateFile($id, $file);
-	public function getUpdateFileAttributes($id, $updatedFile);//Doesn't update db
+	//public function getUpdateFileAttributes($id, $updatedFile);//Doesn't update db
 	public function saveUploadedFile($file, $filename);
 }
 
