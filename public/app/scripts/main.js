@@ -26,6 +26,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
+		.state('dashboard.item', {
+			url: '/:id',
+			templateUrl: 'app/templates/dashboard.item.html',
+			controller: 'DashboardFileController',
+			resolve: {
+				file: function($stateParams, filesService) {
+					var id = $stateParams.id;
+					return filesService.getFileById(id);
+				}
+			}
+		})
 		.state('category', {
 			url: '/listen/:category',
 			views: {

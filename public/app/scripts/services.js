@@ -21,4 +21,10 @@ app.service("filesService", function($http, $q) {
 			return response.data;
 		});
 	};
+
+	this.getFileById = function(id) {
+		return $http.get('/files/' + id).then(function(response) {
+			return response.data;
+		});
+	};
 });
