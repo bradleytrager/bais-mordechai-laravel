@@ -1,25 +1,18 @@
 var app = angular.module('baisMordechai', ['angularFileUpload', 'ngRoute', 'ui.router', 'ngAnimate']);
-
+app.run(function ($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+});
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
 			url: '/',
-			views: {
-				'breadcrumbs': {},
-				'main-content': {
-					templateUrl: 'app/templates/home.html'
-				}
-			}
+			templateUrl: 'app/templates/home.html'
 		})
 		.state('dashboard', {
 			url: '/dashboard',
-			views: {
-				'breadcrumbs': {},
-				'main-content': {
-					templateUrl: '/dashboard',
-					controller: "DashboardController"
-				}
-			},
+			templateUrl: '/dashboard',
+			controller: "DashboardController",
 			resolve: {
 				files: function(filesService) {
 					return filesService.getAllFiles();
@@ -37,8 +30,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		.state('category', {
-			url: '/listen/:category',
+	.state('listen', {
+		url: '/listen',
+		templateUrl: 'app/templates/page.html',
+		abstract: true
+	})
+		.state('listen.category', {
+			url: '/:category',
 			views: {
 				'breadcrumbs': {
 					templateUrl: 'app/templates/breadcrumbs.html',
@@ -51,14 +49,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		.state('listen', {
-			url: '/listen/:category/:subcategory',
+		.state('listen.category.subcategory', {
+			url: '/:subcategory',
 			views: {
-				'breadcrumbs': {
-					templateUrl: 'app/templates/breadcrumbs.html',
-					controller: 'BreadCrumbController'
-				},
-				'main-content': {
+				'main-content@listen': {
 					templateUrl: 'app/templates/items.html',
 					controller: 'FilesController'
 				}
@@ -71,7 +65,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		.state('listen.item', {
+		.state('listen.category.subcategory.item', {
 			url: '/:id',
 			templateUrl: 'app/templates/item.html',
 			controller: 'FileController',

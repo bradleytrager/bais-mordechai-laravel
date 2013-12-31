@@ -2,7 +2,7 @@
 <div class="col-md-4">
 	<div class="list-group"  >
 		<a ng-repeat="file in files | filter:search |orderBy:'title'"
-		ui-sref='listen.item({id: file.id})' class="list-group-item" 
+		ui-sref='listen.category.subcategory.item({id: file.id})' class="list-group-item" 
 		ui-sref-active="active">
 		{{ file.title }}
 	</a>

@@ -89,18 +89,27 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li ui-sref-active="active"><a ui-sref="category({category:'shiurim'})">Shiurim</a></li>
-				<li ui-sref-active="active"><a ui-sref="category({category:'music'})">Music</a></li>
-				<li ui-sref-active="active"><a ui-sref="category({category:'leading_services'})">Leading Services</a></li>
-				<li ui-sref-active="active"><a ui-sref="page({page:'contact'})">Contact</a></li>
-				<li ui-sref-active="active"><a ui-sref="page({page:'about'})">About</a></li>
+				<li ui-sref-active="active" ng-class="{ active: $stateParams.category == 'shiurim' }">
+					<a ui-sref="listen.category({category:'shiurim'})">Shiurim</a>
+				</li>
+				<li ui-sref-active="active" ng-class="{ active: $stateParams.category == 'music' }">
+					<a ui-sref="listen.category({category:'music'})">Music</a>
+				</li>
+				<li ui-sref-active="active" ng-class="{ active: $stateParams.category == 'leading_services' }">
+					<a ui-sref="listen.category({category:'leading_services'})">Leading Services</a>
+				</li>
+				<li ui-sref-active="active">
+					<a ui-sref="page({page:'contact'})">Contact</a>
+				</li>
+				<li ui-sref-active="active">
+					<a ui-sref="page({page:'about'})">About</a>
+				</li>
 			</ul>
 
 		</div>
 	</nav>
 	<div class="container">
-		<div ui-view="breadcrumbs"></div>
-		<div ng-animate="'view'" ui-view="main-content"></div>
+		<ui-view></ui-view>
 	</div>
 	<script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
 	<script type="text/javascript" src="app/vendor/bootstrap/dist/js/bootstrap.js"></script>
