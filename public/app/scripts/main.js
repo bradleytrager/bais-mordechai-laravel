@@ -1,7 +1,7 @@
 var app = angular.module('baisMordechai', ['angularFileUpload', 'ngRoute', 'ui.router', 'ngAnimate']);
-app.run(function ($rootScope, $state, $stateParams) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
+app.run(function($rootScope, $state, $stateParams) {
+	$rootScope.$state = $state;
+	$rootScope.$stateParams = $stateParams;
 });
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
@@ -30,11 +30,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-	.state('listen', {
-		url: '/listen',
-		templateUrl: 'app/templates/page.html',
-		abstract: true
-	})
+		.state('listen', {
+			url: '/listen',
+			templateUrl: 'app/templates/page.html',
+			abstract: true
+		})
 		.state('listen.category', {
 			url: '/:category',
 			views: {
@@ -52,6 +52,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('listen.category.subcategory', {
 			url: '/:subcategory',
 			views: {
+				'breadcrumbs@listen': {
+					templateUrl: 'app/templates/breadcrumbs.html',
+					controller: 'BreadCrumbController'
+				},
 				'main-content@listen': {
 					templateUrl: 'app/templates/items.html',
 					controller: 'FilesController'

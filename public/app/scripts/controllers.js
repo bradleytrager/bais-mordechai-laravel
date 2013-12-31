@@ -1,13 +1,13 @@
-app.controller('AppController', function($rootScope) {
+app.controller('AppController', function($scope, $rootScope, $state ,$stateParams) {
 	$rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
 		console.log(rejection);
 	});
+	
 });
-app.controller('BreadCrumbController', function($scope, $stateParams) {
+app.controller('BreadCrumbController', function($scope, $stateParams, $state) {
 	$scope.crumbs = [];
 	angular.forEach($stateParams, function(value, key) {
 		this.push(value);
-
 	}, $scope.crumbs);
 });
 

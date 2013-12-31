@@ -89,13 +89,13 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li ui-sref-active="active" ng-class="{ active: $stateParams.category == 'shiurim' }">
+				<li ng-class="{active:$stateParams.category == 'shiurim'}">
 					<a ui-sref="listen.category({category:'shiurim'})">Shiurim</a>
 				</li>
-				<li ui-sref-active="active" ng-class="{ active: $stateParams.category == 'music' }">
+				<li ng-class="{ active: $stateParams.category == 'music' }">
 					<a ui-sref="listen.category({category:'music'})">Music</a>
 				</li>
-				<li ui-sref-active="active" ng-class="{ active: $stateParams.category == 'leading_services' }">
+				<li ng-class="{ active: $stateParams.category == 'leading_services' }">
 					<a ui-sref="listen.category({category:'leading_services'})">Leading Services</a>
 				</li>
 				<li ui-sref-active="active">
