@@ -22,7 +22,7 @@ class CreateFilesTable extends Migration {
 			$table->string('category');
 			$table->string('subcategory');
 			$table->string('file_type')->default("audio");
-			$table->integer('display_order');
+			$table->integer('display_order')->default(999);
 			$table->timestamps();
 		});
 	}

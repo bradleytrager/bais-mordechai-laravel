@@ -37,6 +37,17 @@ class DbFileRepository implements FileRepositoryInterface{
 		return $file->first();
 	}
 
+	public function getFileByCategoryAndTitle($category, $subcategory, $title){
+		$file = new File();
+
+		$file = $file->where('category', $category);
+		if($subcategory != 'all'){
+			$file = $file->where('subcategory', $subcategory);
+		}
+		$file = $file->where('title', $title);
+		return $file->first();
+	}
+
 	public function createFile($newFile){
 		$file = new File();
 		$file->fill($newFile);
@@ -49,6 +60,10 @@ class DbFileRepository implements FileRepositoryInterface{
 		$file->fill($updatedFile);
 		$file->save();
 		return $file->getAttributes();
+	}
+	public function deleteFile($id){
+		$file = File::find($id);
+		$file->delete();
 	}
 	public function getUpdateFileAttributes($id, $updatedFile){
 		$file = File::find($id);

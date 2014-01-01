@@ -66,9 +66,9 @@ class FilesController extends \BaseController {
 		return $this->file->getFileById($id);
 	}
 
-	public function showByCategory($category, $subcategory, $id)
+	public function showByCategory($category, $subcategory, $title)
 	{
-		return $this->file->getFileByCategoryAndId($category, $subcategory, $id);
+		return $this->file->getFileByCategoryAndTitle($category, $subcategory, $title);
 	}
 	
 
@@ -92,7 +92,7 @@ class FilesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->file->deleteFile($id);
 	}
 
 }
