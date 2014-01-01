@@ -109,6 +109,12 @@
 		</div>
 	</nav>
 	<div class="container">
+		<ol class="breadcrumb" ng-controller="BreadCrumbController">
+			<li ng-repeat="breadcrumb in breadcrumbs">
+				<a ng-href="{{breadcrumb.url}}" ng-if="breadcrumb.url">{{breadcrumb.name |ucfirst}}</a>
+				<span ng-if="!breadcrumb.url">{{breadcrumb.name |ucfirst}}</span>
+			</li>
+		</ol>
 		<ui-view></ui-view>
 	</div>
 	<script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>

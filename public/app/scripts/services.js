@@ -27,9 +27,8 @@ app.service("filesService", function($http, $q) {
 			return $http.get('/files/' + id).then(function(response) {
 				return response.data;
 			});
-		}
-		else{
-			return {};//In this case we are creating a new file
+		} else {
+			return {}; //In this case we are creating a new file
 		}
 
 	};
@@ -48,5 +47,63 @@ app.service("filesService", function($http, $q) {
 
 	this.uploadFile = function(file) {
 
+	};
+});
+app.service('breadcrumbService', function($rootScope) {
+	this.getBreadcrumbs = function($state, $stateParams) {
+		var breadcrumbs = [];
+		
+		var states = (function() {
+			var states = [];
+			angular.forEach($state.get(), function(state) {
+				if (!state.abstract) {
+					states.push(state);
+				}
+			});
+			return states;
+		})();
+
+		var getName = function(stateName) {
+			var stateNameMapping = {
+				"home": function() {
+					return "Home";
+				},
+				"dashboard": function() {
+					return "Dashbord";
+				},
+				"dashboard.item": function() {
+					return "dashboard.item";
+				},
+				"listen.category": function() {
+					return $stateParams.category;
+				},
+				"listen.category.subcategory": function() {
+					return $stateParams.subcategory;
+				},
+				"listen.category.subcategory.item": function() {
+					return $stateParams.id;
+				},
+				"page": function() {
+					return $stateParams.page;
+				}
+			};
+			return stateNameMapping[stateName]();
+		};
+
+		angular.forEach(states, function(state) {
+			if ($state.includes(state.name) && (state.name != $state.current.name)) {
+
+				breadcrumbs.push({
+					name: getName(state.name),
+					url: $state.href(state.name)
+				});
+			}
+		});
+
+		breadcrumbs.push({
+			name: getName($state.current.name)
+		});
+
+		return breadcrumbs;
 	};
 });

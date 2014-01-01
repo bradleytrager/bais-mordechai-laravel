@@ -4,11 +4,12 @@ app.controller('AppController', function($scope, $rootScope, $state ,$stateParam
 	});
 	
 });
-app.controller('BreadCrumbController', function($scope, $stateParams, $state) {
-	$scope.crumbs = [];
-	angular.forEach($stateParams, function(value, key) {
-		this.push(value);
-	}, $scope.crumbs);
+app.controller('BreadCrumbController', function($scope, $state, $stateParams, breadcrumbService) {
+$scope.breadcrumbs = [];
+	$scope.$on('$stateChangeSuccess', function(){
+		$scope.breadcrumbs = breadcrumbService.getBreadcrumbs($state, $stateParams);
+	});
+	
 });
 
 app.controller('FilesController', function($scope, $stateParams, $filter, files) {

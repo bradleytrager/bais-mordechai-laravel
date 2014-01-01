@@ -2,6 +2,7 @@
 /vendor
 /public/app/vendor
 /public/uploads
+/public2
 composer.phar
 composer.lock
 .DS_Store

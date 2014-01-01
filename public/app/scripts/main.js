@@ -31,17 +31,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('listen', {
-			url: '/listen',
-			templateUrl: 'app/templates/page.html',
-			abstract: true
+			url: 'listen',
+			views:{
+				"@":{
+					templateUrl: 'app/templates/page.html'
+				}
+			},
+			
+			abstract: true,
+			parent:'home'
 		})
 		.state('listen.category', {
 			url: '/:category',
 			views: {
-				'breadcrumbs': {
-					templateUrl: 'app/templates/breadcrumbs.html',
-					controller: 'BreadCrumbController'
-				},
 				'main-content': {
 					templateUrl: function($stateParams) {
 						return 'app/templates/' + $stateParams.category + '.html';
@@ -52,10 +54,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('listen.category.subcategory', {
 			url: '/:subcategory',
 			views: {
-				'breadcrumbs@listen': {
-					templateUrl: 'app/templates/breadcrumbs.html',
-					controller: 'BreadCrumbController'
-				},
 				'main-content@listen': {
 					templateUrl: 'app/templates/items.html',
 					controller: 'FilesController'
@@ -83,18 +81,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('page', {
-			url: '/page/:page',
+			url: 'page/:page',
 			views: {
-				'breadcrumbs': {
-					templateUrl: 'app/templates/breadcrumbs.html',
-					controller: 'BreadCrumbController'
-				},
-				'main-content': {
+				'@': {
 					templateUrl: function($stateParams) {
 						return 'app/templates/' + $stateParams.page + '.html';
 					}
 				}
-			}
+			},
+			parent:'home'
 		});
 	$urlRouterProvider.otherwise("/");
 });

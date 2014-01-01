@@ -16,7 +16,6 @@
     "bootstrap": "git://github.com/twbs/bootstrap.git",
     "bootstrap-jasny": "git://github.com/jasny/bootstrap.git",
     "ng-file-upload":"git://github.com/danialfarid/angular-file-upload-bower.git",
-    "angular-bootstrap": "git://github.com/angular-ui/bootstrap-bower.git",
     "jplayer" :"git://github.com/happyworm/jPlayer.git"
   }
 }
