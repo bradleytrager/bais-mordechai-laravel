@@ -1,4 +1,6 @@
-app.service("filesService", function($http, $q) {
+angular.module('app.services', [])
+  .value('version', '0.1')
+  .service("filesService", function($http, $q) {
 	this.getFileByCategory = function(category, subcategory, id) {
 		var deferred = $q.defer();
 		$http.get('/files/' + category + '/' + subcategory + '/' + id).success(function(file) {
@@ -45,11 +47,11 @@ app.service("filesService", function($http, $q) {
 		});
 	};
 
-	this.uploadFile = function(file) {
-
+	this.deleteFile = function(file){
+		return $http.delete("/files/" + file.id);
 	};
-});
-app.service('breadcrumbService', function($rootScope) {
+})
+.service('breadcrumbService', function($rootScope, filesService) {
 	this.getBreadcrumbs = function($state, $stateParams) {
 		var breadcrumbs = [];
 		
@@ -69,10 +71,10 @@ app.service('breadcrumbService', function($rootScope) {
 					return "Home";
 				},
 				"dashboard": function() {
-					return "Dashbord";
+					return "Dashboard";
 				},
 				"dashboard.item": function() {
-					return "dashboard.item";
+					return $stateParams.id?$stateParams.id:"New";
 				},
 				"listen.category": function() {
 					return $stateParams.category;
@@ -92,7 +94,6 @@ app.service('breadcrumbService', function($rootScope) {
 
 		angular.forEach(states, function(state) {
 			if ($state.includes(state.name) && (state.name != $state.current.name)) {
-
 				breadcrumbs.push({
 					name: getName(state.name),
 					url: $state.href(state.name)

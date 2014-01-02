@@ -1,4 +1,5 @@
-app.directive('jplayer', function($http, $templateCache, $compile, $parse, $rootScope) {
+angular.module('app.directives', [])
+.directive('jplayer', function($http, $templateCache, $compile, $parse, $rootScope) {
 	return {
 		restrict: 'E',
 		scope: {
@@ -29,4 +30,9 @@ app.directive('jplayer', function($http, $templateCache, $compile, $parse, $root
 			});
 		}
 	};
-});
+})
+.directive('appVersion', ['version', function(version) {
+    return function(scope, elm, attrs) {
+      elm.text(version);
+    };
+  }]);

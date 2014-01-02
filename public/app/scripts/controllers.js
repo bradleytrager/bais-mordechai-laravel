@@ -1,38 +1,35 @@
-app.controller('AppController', function($scope, $rootScope, $state ,$stateParams) {
+angular.module('app.controllers', [	'angularFileUpload'])
+.controller('AppController', function($scope, $rootScope, $state, $stateParams) {
 	$rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
 		console.log(rejection);
 	});
-	
-});
-app.controller('BreadCrumbController', function($scope, $state, $stateParams, breadcrumbService) {
-$scope.breadcrumbs = [];
-	$scope.$on('$stateChangeSuccess', function(){
+
+})
+.controller('BreadCrumbController', function($scope, $state, $stateParams, breadcrumbService) {
+	$scope.breadcrumbs = [];
+	$scope.$on('$stateChangeSuccess', function() {
 		$scope.breadcrumbs = breadcrumbService.getBreadcrumbs($state, $stateParams);
 	});
-	
-});
 
-app.controller('FilesController', function($scope, $stateParams, $filter, files) {
+})
+.controller('FilesController', function($scope, $stateParams, $filter, files) {
 	$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
 	$scope.files = files;
-});
-
-app.controller('FileController', function($scope, file) {
+})
+.controller('FileController', function($scope, file) {
 	$scope.file = file;
-});
-
-app.controller('DashboardController', function($scope, filesService, files) {
+})
+.controller('DashboardController', function($scope, filesService, files) {
 	$scope.files = files;
 	$scope.refreshFiles = function() {
 		filesService.getAllFiles().then(function(files) {
 			$scope.files = files;
 		});
 	};
-});
-
-app.controller('DashboardFileController', function($scope, $http, $upload, $timeout, $state, filesService, file) {
+})
+.controller('DashboardFileController', function($scope, $http, $upload, $timeout, $state, filesService, file) {
 	$scope.activeFile = file;
-
+	
 	$scope.submit = function() {
 		if ($scope.activeFile.id) {
 			filesService.updateFile($scope.activeFile).then(function(file) {
@@ -42,10 +39,22 @@ app.controller('DashboardFileController', function($scope, $http, $upload, $time
 		} else {
 			filesService.createFile($scope.activeFile).then(function(file){
 				$scope.$parent.refreshFiles();
-				$state.go('dashboard.item', {id:file.id});
+				$state.go('dashboard.item', {
+					id: file.id
+				});
 			});
 		}
 	};
+
+	$scope.deleteFile = function() {
+		filesService.deleteFile($scope.activeFile).then(function() {
+			$scope.$parent.refreshFiles();
+			$state.go('dashboard.item', {
+				id: ""
+			});
+		});
+	};
+
 	$scope.onFileSelect = function($file) {
 		$scope.uploadProgressDisplay = 1;
 		var file = $file[0];

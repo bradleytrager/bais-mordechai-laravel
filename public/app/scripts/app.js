@@ -1,8 +1,16 @@
-var app = angular.module('baisMordechai', ['angularFileUpload', 'ngRoute', 'ui.router', 'ngAnimate']);
+var app = angular.module('baisMordechai', [
+	'ui.router',
+	'app.controllers',
+	'app.directives',
+	'app.filters',
+	'app.services'
+]);
+
 app.run(function($rootScope, $state, $stateParams) {
 	$rootScope.$state = $state;
 	$rootScope.$stateParams = $stateParams;
 });
+
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -32,14 +40,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('listen', {
 			url: 'listen',
-			views:{
-				"@":{
+			views: {
+				"@": {
 					templateUrl: 'app/templates/page.html'
 				}
 			},
-			
+
 			abstract: true,
-			parent:'home'
+			parent: 'home'
 		})
 		.state('listen.category', {
 			url: '/:category',
@@ -89,7 +97,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 					}
 				}
 			},
-			parent:'home'
+			parent: 'home'
 		});
 	$urlRouterProvider.otherwise("/");
 });

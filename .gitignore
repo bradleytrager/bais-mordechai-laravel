@@ -1,6 +1,8 @@
 /bootstrap/compiled.php
 /vendor
 /public/app/vendor
+/public/app/lib
+/public/node_modules
 /public/uploads
 /public2
 composer.phar
