@@ -93,11 +93,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			views: {
 				'@': {
 					templateUrl: function($stateParams) {
-						return 'app/templates/' + $stateParams.page + '.html';
+						return 'app/templates/pages/' + $stateParams.page + '/index.html';
 					}
 				}
 			},
 			parent: 'home'
+		})
+		.state('page.subpage', {
+			url: '/:subpage',
+			templateUrl: function($stateParams) {
+				return 'app/templates/pages/' + $stateParams.page + '/' + $stateParams.subpage + '.html';
+			}
 		});
 	$urlRouterProvider.otherwise("/");
 });

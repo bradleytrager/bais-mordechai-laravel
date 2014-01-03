@@ -88,6 +88,9 @@ angular.module('app.services', [])
 					},
 					"page": function() {
 						return $stateParams.page;
+					},
+					"page.subpage": function() {
+						return $stateParams.subpage;
 					}
 				};
 				return stateNameMapping[stateName]();
