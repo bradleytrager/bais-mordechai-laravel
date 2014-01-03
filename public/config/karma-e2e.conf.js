@@ -8,22 +8,23 @@ module.exports = function(config){
         'test/e2e/**/*.js'
     ],
 
-    autoWatch : false,
+    autoWatch : true,
 
-    browsers : ['Chrome'],
+     browsers: ['PhantomJS'],
 
     frameworks: ['ng-scenario'],
 
-    singleRun : true,
-
+    singleRun : false,
+    urlRoot: '/__e2e/',
     proxies : {
-      '/': 'http://localhost:8000/'
+      '/': 'http://localhost:8001/'
     },
 
     plugins : [
             'karma-junit-reporter',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
+            'karma-phantomjs-launcher',
             'karma-jasmine',
             'karma-ng-scenario'
             ],

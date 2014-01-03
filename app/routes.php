@@ -10,6 +10,8 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+header('Access-Control-Allow-Origin: *');
+//$response->headers->set('Access-Control-Allow-Origin', '*');
 Route::get('/', function(){
 	return View::make('index');
 });
