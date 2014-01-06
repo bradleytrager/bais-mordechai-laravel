@@ -17,6 +17,12 @@ angular.module('app.filters', [])
 			return out;
 		};
 	})
+	.filter('timeago', function(){
+		return function(input){
+			var out = moment(input.split(" ")[0], "YYYY-MM-DD").fromNow();
+			return out;
+		}
+	})
 	.filter('interpolate', ['version',
 		function(version) {
 			return function(text) {

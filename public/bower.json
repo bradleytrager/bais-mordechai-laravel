@@ -10,14 +10,15 @@
   ],
   "dependencies": {
     "angular": "git://github.com/angular/bower-angular.git#~1.2.0-rc.2",
-    "angular-route" : "git://github.com/angular/bower-angular-route.git",
+    "angular-route": "git://github.com/angular/bower-angular-route.git",
     "angular-ui-router": "git://github.com/angular-ui/ui-router.git#~0.2.0",
-    "angular-animate" : "git://github.com/angular/bower-angular-animate.git",
+    "angular-animate": "git://github.com/angular/bower-angular-animate.git",
     "bootstrap": "git://github.com/twbs/bootstrap.git",
     "bootstrap-jasny": "git://github.com/jasny/bootstrap.git",
     "typeahead.js": "git://github.com/twitter/typeahead.js",
-    "ng-file-upload":"git://github.com/danialfarid/angular-file-upload-bower.git",
-    "angular-typeahead":"git://github.com/Siyfion/angular-typeahead.git",
-    "jplayer" :"git://github.com/happyworm/jPlayer.git"
+    "ng-file-upload": "git://github.com/danialfarid/angular-file-upload-bower.git",
+    "angular-typeahead": "git://github.com/Siyfion/angular-typeahead.git",
+    "jplayer": "git://github.com/happyworm/jPlayer.git",
+    "momentjs": "~2.5.0"
   }
 }

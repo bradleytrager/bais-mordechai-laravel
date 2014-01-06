@@ -1,5 +1,6 @@
 <?php
-
+use BaisMordechai\Models\File;
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,18 +16,38 @@ header('Access-Control-Allow-Origin: *');
 Route::get('/', function(){
 	return View::make('index');
 });
-
-
 Route::resource('files', 'FilesController', array('only' => array('index', 'show')));
-
 Route::get('files/{category}/{subcategory}', 'FilesController@get');
 Route::get('files/{category}/{subcategory}/{title}', 'FilesController@showByCategory');
 
-Route::post('files', array('uses' => 'FilesController@store',
-                                        'as' => 'files.store'))->before('auth.basic');
-Route::put('files/{files}', array('uses' => 'FilesController@update', 'as'=>'files.update'))->before('auth.basic');
-Route::delete('files/{files}', array('uses' => 'FilesController@destroy', 'as'=>'files.destroy'))->before('auth.basic');
+Route::group(array('before' => 'auth.basic'), function()
+{
+	Route::post('files', array('uses' => 'FilesController@store',
+	            'as' => 'files.store'));
+	Route::put('files/{files}', array('uses' => 'FilesController@update', 'as'=>'files.update'));
+	Route::delete('files/{files}', array('uses' => 'FilesController@destroy', 'as'=>'files.destroy'));
 
-Route::get('dashboard', function(){
-	return View::make('partials/dashboard');
-})->before('auth.basic');
+	Route::get('dashboard', function(){
+		return View::make('partials/dashboard');
+	});
+});
+
+Route::get('current_parashah', function(){
+	$file = new BaisMordechai\FileParser\src\FileParser\File('fullkriyah.csv');
+	$now = Carbon::now();
+	foreach ($file as $key => $value) {
+		$date = new Carbon($value[0]);
+		if($now->lt($date)){
+			return $value[1];
+		}
+	}
+
+	//Default if nothing is returned
+	return "Bereishit";
+});
+
+Route::get('whats_new', function(){
+	$new_time = Carbon::now()->subDays(14);
+	$files = new File();
+	return $files->where("created_at", ">", $new_time)->get();
+});

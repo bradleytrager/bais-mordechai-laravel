@@ -1,9 +1,8 @@
 angular.module('app.controllers', [	'angularFileUpload'])
-.controller('AppController', function($scope, $rootScope, $state, $stateParams) {
+.controller('AppController', function($scope, $rootScope, $state, $stateParams, $http) {
 	$rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
 		console.log(rejection);
 	});
-
 })
 .controller('BreadCrumbController', function($scope, $state, $stateParams, breadcrumbService) {
 	$scope.breadcrumbs = [];
@@ -11,6 +10,11 @@ angular.module('app.controllers', [	'angularFileUpload'])
 		$scope.breadcrumbs = breadcrumbService.getBreadcrumbs($state, $stateParams);
 	});
 
+})
+.controller('HomeController', function($scope, currentParashah, whatsNew){
+	$scope.currentParashah = currentParashah;
+	$scope.whatsNew = whatsNew;
+	console.log(whatsNew);
 })
 .controller('FilesController', function($scope, $stateParams, $filter, files) {
 	$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);

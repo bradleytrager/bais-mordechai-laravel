@@ -16,7 +16,7 @@
 				So too must we continue to move forward in our quest for
 				spirituality and contentment.
 			</p>
-			<a href="#/page/about" class="btn btn-primary">
+			<a ui-sref="page({page:'about'})" class="btn btn-primary">
 				Read more »</a>
 				
 			</div>
@@ -25,14 +25,21 @@
 	<div class="row">
 		<div class="col-md-4 no-gutter">
 			<div class="well">
-				<h2><a href="#/">Current Parashah</a></h2>
+				<h2><a ui-sref="listen.category.subcategory({category:'shiurim', subcategory:'{{currentParashah}}' })">Current Parashah</a></h2>
 				<p>See all of Marty's classes on the current weekly parashah</p>
+
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="well">
-				<h2><a href="#/">What's New</a></h2>
-				<p>See the most recent content including classes on the parashah, leading services and original music</p>
+				<h2>What's New</h2>
+				<ul>
+					<li ng-repeat="new in whatsNew" 
+					>
+					<a ui-sref='listen.category.subcategory.item({category:new.category, subcategory:new.subcategory, id: new.title})'>
+						{{new.title}} ( {{new.created_at | timeago}} )
+					</a></li>
+				</ul>
 			</div>
 		</div>
 		<div class="col-md-4 no-gutter">

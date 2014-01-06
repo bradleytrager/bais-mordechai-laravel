@@ -80,6 +80,9 @@
 	.no-margin-top{
 		margin-top:0;
 	}
+    hr{
+        border-top:1px solid #2c3e50;
+    }
     </style>
 </head>
 <body>
@@ -138,6 +141,7 @@
     <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload.js"></script>
     <script type="text/javascript" src="app/vendor/angular-typeahead/angular-typeahead.js"></script>
     <script type="text/javascript" src="app/vendor/jplayer/jquery.jplayer/jquery.jplayer.js"></script>
+     <script type="text/javascript" src="app/vendor/momentjs/moment.js"></script>
     <script type="text/javascript" src="app/scripts/app.js"></script>
     <script type="text/javascript" src="app/scripts/directives.js"></script>
     <script type="text/javascript" src="app/scripts/controllers.js"></script>

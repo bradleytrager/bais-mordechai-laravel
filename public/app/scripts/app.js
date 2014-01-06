@@ -15,7 +15,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
 			url: '/',
-			templateUrl: 'app/templates/home.html'
+			templateUrl: 'app/templates/home.html',
+			controller: 'HomeController',
+			resolve: {
+				currentParashah: function($http) {
+					return $http.get('/current_parashah/').then(function(response) {
+						return response.data;
+					});
+				},
+				whatsNew:function($http) {
+					return $http.get('/whats_new/').then(function(response) {
+						return response.data;
+					});
+				}
+			}
 		})
 		.state('dashboard', {
 			url: '/dashboard',
