@@ -11,7 +11,7 @@ app.run(function($rootScope, $state, $stateParams) {
 	$rootScope.$stateParams = $stateParams;
 });
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $controllerProvider) {
 	$stateProvider
 		.state('home', {
 			url: '/',
@@ -103,6 +103,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('page', {
 			url: 'page/:page',
+			controllers:['contactController'],
 			views: {
 				'@': {
 					templateUrl: function($stateParams) {

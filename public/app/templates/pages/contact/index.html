@@ -1,1 +1,38 @@
-Contact
+<div class="col-md-8 col-md-offset-2 well" ng-controller="contactController" ng-submit="submit(message)">
+	<h1 class="no-margin-top">Contact</h1>
+	<form novalidate name="contactForm" role="form">
+		<div class="form-group">
+			<label for="nameInput">Name *</label>
+			<input type="text" id="nameInput" name="nameInput" class="form-control" required ng-model="message.name"/>
+			<div ng-show="contactForm.nameInput.$dirty && contactForm.nameInput.$invalid">
+				<ul>
+					<li ng-show="contactForm.nameInput.$error.required" >Your name is required.</li>
+				</ul>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="emailInput">Email *</label>
+			<input type="email" id="emailInput" name="emailInput" class="form-control" required ng-model="message.email"/>
+			<div ng-show="contactForm.emailInput.$dirty && contactForm.emailInput.$invalid">
+				<ul>
+					<li ng-show="contactForm.emailInput.$error.required" >Your email address is required.</li>
+					<li ng-show="contactForm.emailInput.$error.email" >Your must enter a valid email.</li>
+				</ul>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="subjectInput">Subject</label>
+			<input type="text" id="subjectInput" class="form-control" ng-model="message.subject"/>
+		</div>
+		<div class="form-group">
+			<label for="messageInput">Message *</label>
+			<textarea id="messageInput" name="messageInput" class="form-control" required ng-model="message.body" style="height:150px"></textarea>	
+			<div ng-show="contactForm.messageInput.$dirty && contactForm.messageInput.$invalid">
+				<ul>
+					<li ng-show="contactForm.messageInput.$error.required" >You must write a message.</li>
+				</ul>
+			</div>
+		</div>
+		<input type="submit" value="Send" class="btn btn-default" />
+	</form>
+</div>

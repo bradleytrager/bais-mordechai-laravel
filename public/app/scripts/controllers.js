@@ -9,12 +9,28 @@ angular.module('app.controllers', [	'angularFileUpload'])
 	$scope.$on('$stateChangeSuccess', function() {
 		$scope.breadcrumbs = breadcrumbService.getBreadcrumbs($state, $stateParams);
 	});
-
 })
 .controller('HomeController', function($scope, currentParashah, whatsNew){
 	$scope.currentParashah = currentParashah;
 	$scope.whatsNew = whatsNew;
 	console.log(whatsNew);
+})
+.controller('contactController', function($scope, $http){
+	$scope.submit = function(message){
+		if($scope.contactForm.$valid){
+			console.log(message);
+			$http.post("/contact/", message).then(function(response){
+				alert("Thank you, your message has been submitted");
+				$scope.contactForm.$setPristine();
+				//$scope.message = {};
+			});
+		}
+		else{
+			// alert("Please fix requiered fields.");
+			console.log(message);
+			console.log($scope.contactForm);
+		}
+	};
 })
 .controller('FilesController', function($scope, $stateParams, $filter, files) {
 	$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
@@ -33,7 +49,6 @@ angular.module('app.controllers', [	'angularFileUpload'])
 })
 .controller('DashboardFileController', function($scope, $http, $upload, $timeout, $state, filesService, file) {
 	$scope.activeFile = file;
-	
 	$scope.submit = function() {
 		if ($scope.activeFile.id) {
 			filesService.updateFile($scope.activeFile).then(function(file) {
@@ -49,7 +64,6 @@ angular.module('app.controllers', [	'angularFileUpload'])
 			});
 		}
 	};
-
 	$scope.deleteFile = function() {
 		filesService.deleteFile($scope.activeFile).then(function() {
 			$scope.$parent.refreshFiles();
@@ -58,7 +72,6 @@ angular.module('app.controllers', [	'angularFileUpload'])
 			});
 		});
 	};
-
 	$scope.onFileSelect = function($file) {
 		$scope.uploadProgressDisplay = 1;
 		var file = $file[0];

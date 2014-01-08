@@ -1,5 +1,10 @@
 angular.module('app.services', [])
 	.value('version', '0.1')
+	/**
+	 * Prevent auto-scrolling to top on state change
+	 * https://github.com/angular-ui/ui-router/issues/110#issuecomment-18052396
+	 */
+	.value('$anchorScroll', angular.noop)
 	.service("filesService", function($http, $q) {
 		var BASE_PATH = "http://localhost:8000";
 		this.getFileByCategory = function(category, subcategory, id) {

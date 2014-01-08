@@ -19,7 +19,7 @@ angular.module('app.filters', [])
 	})
 	.filter('timeago', function(){
 		return function(input){
-			var out = moment(input.split(" ")[0], "YYYY-MM-DD").fromNow();
+			var out = moment.utc(input, "YYYY-MM-DD HH:mm:ss").fromNow();
 			return out;
 		}
 	})

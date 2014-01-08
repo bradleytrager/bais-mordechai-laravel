@@ -49,5 +49,25 @@ Route::get('current_parashah', function(){
 Route::get('whats_new', function(){
 	$new_time = Carbon::now()->subDays(14);
 	$files = new File();
-	return $files->where("created_at", ">", $new_time)->get();
+	return $files->where("created_at", ">", $new_time)->orderBy("created_at", "desc")->get();
+});
+
+
+//Mail::pretend();
+
+Route::post('contact', function(){
+	$data=Input::all();
+
+	Mail::send('emails.contact', $data, function($message) use ($data)
+	{
+		$message->from($data["email"]);
+		$message->to('binyomintrager@gmail.com')->cc('bradleytrager@gmail.com');
+		$message->subject($data["subject"]);
+	});
+	return $data;
+});
+
+App::missing(function($exception)
+{
+	return "Sorry, the page you are looking for does not exist.";
 });
