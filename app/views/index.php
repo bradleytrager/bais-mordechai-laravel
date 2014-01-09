@@ -36,54 +36,41 @@
         //height: 65px; 
     }
 
-    .view-enter, .view-leave {
-        position: absolute;
-        -webkit-transition:all .5s ease-in-out;
-        -moz-transition:all .5s ease-in-out;
-        -o-transition:all .5s ease-in-out;
-        transition:all .5s ease-in-out;
-    }
+    /**
+    
+        TODO: Animate transitions
+        - https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-animate-ui-view-with-ng-animate
+        - http://stackoverflow.com/questions/20991255/angularjs-animations-with-ui-router-which-versions-work
+        - http://stackoverflow.com/questions/19514445/how-can-i-use-ng-animate-with-ui-view-rather-than-ng-view
+        - https://github.com/angular-ui/ui-router/issues/320
+    **/
+    
+    .ngPartialSlideReveal.ng-enter {
+      -webkit-transition: 0.5s linear all;
+      -moz-transition: 0.5s linear all;
+      -o-transition: 0.5s linear all;
+      transition: 0.5s linear all;
+      opacity: 0.5;
+      position: relative;
+      opacity: 0;
+      top: 10px;
+  }
 
-    .view-enter {
-        opacity: 0;
-        -webkit-transform:scale3d(0.5, 0.5, 0.5);
-        -moz-transform:scale3d(0.5, 0.5, 0.5);
-        transform:scale3d(0.5, 0.5, 0.5);
-    }
-
-    .view-enter-active {
-        opacity: 1;
-        -webkit-transform:scale3d(1, 1, 1);
-        -moz-transform:scale3d(1, 1, 1);
-        transform:scale3d(1, 1, 1);
-    }
-
-    .view-leave {
-        opacity: 1;
-        /*padding-left: 0px;*/  
-        -webkit-transform:translate3d(0, 0, 0);
-        -moz-transform:translate3d(0, 0, 0);
-        transform:translate3d(0, 0, 0);
-    }
-
-    .view-leave-active {
-        opacity: 0;
-        /*padding-left: 100px;*/
-        -webkit-transform:translate3d(100px, 0, 0);
-        -moz-transform:translate3d(100px, 0, 0);
-        transform:translate3d(100px, 0, 0);
-    }
-	.no-gutter{
-		padding-left:0;
-		padding-right:0;
-	}
-	.no-margin-top{
-		margin-top:0;
-	}
-    hr{
-        border-top:1px solid #2c3e50;
-    }
-    </style>
+  .ngPartialSlideReveal.ng-enter-active {
+      top: 0;
+      opacity: 1;
+  }
+  .no-gutter{
+      padding-left:0;
+      padding-right:0;
+  }
+  .no-margin-top{
+      margin-top:0;
+  }
+  hr{
+    border-top:1px solid #2c3e50;
+}
+</style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -127,7 +114,7 @@
                 </li>
             </ol>
         </div>
-        <ui-view></ui-view>
+        <ui-view class="ngPartialSlideReveal"></ui-view>
     </div>
     <script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
     <script type="text/javascript" src="app/vendor/bootstrap/dist/js/bootstrap.js"></script>
@@ -141,7 +128,7 @@
     <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload.js"></script>
     <script type="text/javascript" src="app/vendor/angular-typeahead/angular-typeahead.js"></script>
     <script type="text/javascript" src="app/vendor/jplayer/jquery.jplayer/jquery.jplayer.js"></script>
-     <script type="text/javascript" src="app/vendor/momentjs/moment.js"></script>
+    <script type="text/javascript" src="app/vendor/momentjs/moment.js"></script>
     <script type="text/javascript" src="app/scripts/app.js"></script>
     <script type="text/javascript" src="app/scripts/directives.js"></script>
     <script type="text/javascript" src="app/scripts/controllers.js"></script>

@@ -1,5 +1,6 @@
 var app = angular.module('baisMordechai', [
 	'ui.router',
+	'ngAnimate',
 	'app.controllers',
 	'app.directives',
 	'app.filters',
