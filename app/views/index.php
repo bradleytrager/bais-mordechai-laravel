@@ -3,7 +3,7 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="app/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="app/vendor/jplayer/skin/blue.monday/jplayer.blue.monday.css"  />
-
+    <link rel="stylesheet" href="app/vendor/select2/select2.css">
     <style type="text/css">
     body{
         padding-top: 80px;
@@ -43,34 +43,34 @@
         - http://stackoverflow.com/questions/20991255/angularjs-animations-with-ui-router-which-versions-work
         - http://stackoverflow.com/questions/19514445/how-can-i-use-ng-animate-with-ui-view-rather-than-ng-view
         - https://github.com/angular-ui/ui-router/issues/320
-    **/
-    
-    .ngPartialSlideReveal.ng-enter {
-      -webkit-transition: 0.5s linear all;
-      -moz-transition: 0.5s linear all;
-      -o-transition: 0.5s linear all;
-      transition: 0.5s linear all;
-      opacity: 0.5;
-      position: relative;
-      opacity: 0;
-      top: 10px;
-  }
+        **/
 
-  .ngPartialSlideReveal.ng-enter-active {
-      top: 0;
-      opacity: 1;
-  }
-  .no-gutter{
-      padding-left:0;
-      padding-right:0;
-  }
-  .no-margin-top{
-      margin-top:0;
-  }
-  hr{
-    border-top:1px solid #2c3e50;
-}
-</style>
+        .ngPartialSlideReveal.ng-enter {
+          -webkit-transition: 0.5s linear all;
+          -moz-transition: 0.5s linear all;
+          -o-transition: 0.5s linear all;
+          transition: 0.5s linear all;
+          opacity: 0.5;
+          position: relative;
+          opacity: 0;
+          top: 10px;
+      }
+
+      .ngPartialSlideReveal.ng-enter-active {
+          top: 0;
+          opacity: 1;
+      }
+      .no-gutter{
+          padding-left:0;
+          padding-right:0;
+      }
+      .no-margin-top{
+          margin-top:0;
+      }
+      hr{
+        border-top:1px solid #2c3e50;
+    }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -116,10 +116,11 @@
         </div>
         <ui-view class="ngPartialSlideReveal"></ui-view>
     </div>
+
+    <!-- Vendor -->    
     <script type="text/javascript" src="app/vendor/jquery/jquery.js"></script>
     <script type="text/javascript" src="app/vendor/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="app/vendor/typeahead.js/dist/typeahead.js"></script>
-
+    <script type="text/javascript" src="app/vendor/select2/select2.js"></script>
     <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload-shim.min.js"></script> 
     <script type="text/javascript" src="app/vendor/angular/angular.js"></script>
     <script type="text/javascript" src="app/vendor/angular-route/angular-route.js"></script>
@@ -129,11 +130,18 @@
     <script type="text/javascript" src="app/vendor/angular-typeahead/angular-typeahead.js"></script>
     <script type="text/javascript" src="app/vendor/jplayer/jquery.jplayer/jquery.jplayer.js"></script>
     <script type="text/javascript" src="app/vendor/momentjs/moment.js"></script>
+
+    
+    <script type="text/javascript" src="app/vendor/angular-ui-select2/src/select2.js"></script>
+
+    <!-- App -->    
     <script type="text/javascript" src="app/scripts/app.js"></script>
     <script type="text/javascript" src="app/scripts/directives.js"></script>
     <script type="text/javascript" src="app/scripts/controllers.js"></script>
     <script type="text/javascript" src="app/scripts/filters.js"></script>
     <script type="text/javascript" src="app/scripts/services.js"></script>
+    <script type="text/javascript" src="app/scripts/categories.js"></script>
+
 
 </body>
 

@@ -17,20 +17,26 @@
 	</div>
 	<div class="form-group">
 		<label for="categoryInput">Category</label>
-		<input type="text" id="categoryInput" class="form-control" datasets="exampleData" ng-model="activeFile.category" />
-	</div>
-	<div class="form-group">
-		<label for="subcategoryInput">Subcategory</label>
-		<input type="text" id="subcategoryInput" class="form-control" ng-model="activeFile.subcategory" />
-	</div>
-	<div class="form-group">
-		<label for="descriptionInput">Description</label>
-		<textarea id="descriptionInput" class="form-control" ng-model="activeFile.description" style="height:150px"></textarea>			
-	</div>
-	<div class="form-group">
-		<label for="displayOrderInput">Display Order</label>
-		<input type="text" id="displayOrderInput" class="form-control" ng-model="activeFile.display_order" />
-	</div>
-	<input type="submit" value="Save" class="btn btn-default" ng-click="submit()" />
-	<button value="Delete" class="btn btn-danger" ng-click="deleteFile()">Delete</button>
+		<select  ui-select2 ng-model="activeFile.category" 
+		style="width:100%" >
+		 <option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
+	</select>
+</div>
+<div class="form-group">
+	<label for="subcategoryInput">Subcategory</label>
+	<select ui-select2 ng-model="activeFile.subcategory"
+	style="width:100%">
+	 <option ng-repeat="subcategory in subcategories[activeFile.category]" value="{{subcategory}}">{{subcategory}}</option>
+</select>
+</div>
+<div class="form-group">
+	<label for="descriptionInput">Description</label>
+	<textarea id="descriptionInput" class="form-control" ng-model="activeFile.description" style="height:150px"></textarea>			
+</div>
+<div class="form-group">
+	<label for="displayOrderInput">Display Order</label>
+	<input type="text" id="displayOrderInput" class="form-control" ng-model="activeFile.display_order" />
+</div>
+<input type="submit" value="Save" class="btn btn-default" ng-click="submit()" />
+<button value="Delete" class="btn btn-danger" ng-click="deleteFile()">Delete</button>
 </form>

@@ -1,5 +1,11 @@
-var categories =
-	[{
+var BaisMordechai = {};
+BaisMordechai.categories = [
+	"Shiurim",
+	"Music",
+	"Leading Services"
+];
+
+BaisMordechai.subcategories = {
 	"Shiurim": [
 		/*==========  Bereishit  ==========*/
 		"Bereishit",
@@ -74,4 +80,4 @@ var categories =
 		"Friday Night",
 		"Weekday Prayers"
 	]
-}];
+};
