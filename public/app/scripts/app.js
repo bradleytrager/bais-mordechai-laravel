@@ -21,12 +21,12 @@ app.config(function($stateProvider, $urlRouterProvider, $controllerProvider) {
 			controller: 'HomeController',
 			resolve: {
 				currentParashah: function($http) {
-					return $http.get('/current_parashah/').then(function(response) {
+					return $http.get('http://localhost:8000/current_parashah/').then(function(response) {
 						return response.data;
 					});
 				},
 				whatsNew:function($http) {
-					return $http.get('/whats_new/').then(function(response) {
+					return $http.get('http://localhost:8000/whats_new/').then(function(response) {
 						return response.data;
 					});
 				}

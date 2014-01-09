@@ -33,9 +33,47 @@ angular.module('app.controllers', ['angularFileUpload'])
 	.controller('FilesController', function($scope, $stateParams, $filter, files) {
 		$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
 		$scope.files = files;
+
 	})
-	.controller('FileController', function($scope, file) {
+	.controller('FileController', function($scope, file, $stateParams, $state) {
+		console.log(file);
 		$scope.file = file;
+		var currentIndex;
+		angular.forEach($scope.files, function(file, index) {
+			if (file.id == $scope.file.id) {
+				console.log(index);
+				currentIndex = index;
+			}
+		});
+		var tracks = $scope.files.length;
+		$scope.next = function() {
+			if (tracks > 0) {
+				if (currentIndex == tracks - 1) {
+					currentIndex = -1;
+				}
+				currentIndex++;
+				$state.go('listen.category.subcategory.item', {
+					category: $stateParams.category,
+					subcategory: $stateParams.subcategory,
+					id: $scope.files[currentIndex].title
+				});
+			}
+		};
+		$scope.previous = function() {
+			if (tracks > 0) {
+				if (currentIndex == 0) {
+					currentIndex = tracks;
+				}
+				currentIndex--;
+				$state.go('listen.category.subcategory.item', {
+					category: $stateParams.category,
+					subcategory: $stateParams.subcategory,
+					id: $scope.files[currentIndex].title
+				});
+
+			}
+		};
+
 	})
 	.controller('DashboardController', function($scope, filesService, files) {
 		$scope.files = files;
@@ -98,21 +136,20 @@ angular.module('app.controllers', ['angularFileUpload'])
 				var progress = parseInt(100.0 * evt.loaded / evt.total, 10);
 				$scope.uploadProgressDisplay = progress;
 			}).success(function(response, status, headers, config) {
-				if(file.size < 35000000){
+				if (file.size < 35000000) {
 					$scope.activeFile.filename = file.name;
-				}
-				else{
+				} else {
 					alert("The file you are trying to upload is too large.")
 				}
 			})
-			.error(function(){
-				alert('An error occured when trying to upload.')
-			})
-			.then(function() {
-				$timeout(function() {
-					$scope.uploadProgressDisplay = 0;
-				}, 500);
-			});
+				.error(function() {
+					alert('An error occured when trying to upload.')
+				})
+				.then(function() {
+					$timeout(function() {
+						$scope.uploadProgressDisplay = 0;
+					}, 500);
+				});
 		};
 		$scope.uploadProgressDisplay = 0;
 	});

@@ -12,7 +12,7 @@ use Carbon\Carbon;
 |
 */
 header('Access-Control-Allow-Origin: *');
-//$response->headers->set('Access-Control-Allow-Origin', '*');
+
 Route::get('/', function(){
 	return View::make('index');
 });
@@ -49,7 +49,7 @@ Route::get('current_parashah', function(){
 Route::get('whats_new', function(){
 	$new_time = Carbon::now()->subDays(14);
 	$files = new File();
-	return $files->where("created_at", ">", $new_time)->orderBy("created_at", "desc")->get();
+	return $files->where("created_at", ">", $new_time)->orderBy("created_at", "desc")->limit(2)->get();
 });
 
 
@@ -66,7 +66,10 @@ Route::post('contact', function(){
 	});
 	return $data;
 });
-
+Route::get("uploads/{filename}", function(){
+	header('Content-Type:audio/mpeg');
+	return "hello";
+});
 App::missing(function($exception)
 {
 	return "Sorry, the page you are looking for does not exist.";

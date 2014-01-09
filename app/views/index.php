@@ -70,6 +70,21 @@
       hr{
         border-top:1px solid #2c3e50;
     }
+    div.jp-audio ul.jp-controls {
+        padding-left:5px;
+    }
+    a.jp-stop {
+        margin-left:0;
+    }
+    div.jp-audio div.jp-type-single div.jp-progress {
+        left: 140px;
+    }
+    div.jp-audio div.jp-volume-bar {
+        left: 355px;
+    }
+    div.jp-audio div.jp-type-single div.jp-time-holder {
+        left: 140px;
+    }
     </style>
 </head>
 <body>
