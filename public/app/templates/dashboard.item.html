@@ -19,6 +19,7 @@
 		<label for="categoryInput">Category</label>
 		<select  ui-select2 ng-model="activeFile.category" 
 		style="width:100%" >
+		 <option value="">-- Select a Category --</option>
 		 <option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
 	</select>
 </div>
@@ -26,6 +27,7 @@
 	<label for="subcategoryInput">Subcategory</label>
 	<select ui-select2 ng-model="activeFile.subcategory"
 	style="width:100%">
+	 <option value="">-- Select a Subcategory --</option>
 	 <option ng-repeat="subcategory in subcategories[activeFile.category]" value="{{subcategory}}">{{subcategory}}</option>
 </select>
 </div>

@@ -52,13 +52,6 @@ angular.module('app.controllers', [	'angularFileUpload'])
 	$scope.activeFile = file;
 	$scope.categories = BaisMordechai.categories;
 	$scope.subcategories = BaisMordechai.subcategories;
-	$scope.changeCategory = function(){
-		$scope.activeFile.category = $scope.activeFile.category;
-		$scope.activeFile.subcategory = $scope.subcategories[$scope.activeFile.category][0];
-	};
-	// $scope.changeSubcategory = function(){
-	// 	$scope.activeFile.subcategory = $scope.subcategories[$scope.activeFile.category][0];
-	// };
 	$scope.submit = function() {
 		if ($scope.activeFile.id) {
 			filesService.updateFile($scope.activeFile).then(function(file) {
