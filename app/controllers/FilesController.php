@@ -36,22 +36,19 @@ class FilesController extends \BaseController {
 			$filename = Input::file('file')->getClientOriginalName();
 			$this->file->saveUploadedFile($file, $filename);
 			
-			// $id = Input::get('id');
-			// if($id){
-			// 	$file = File::find($id);
-			// 	$file->filename = $filename;
-			// 	return $this->file->getUpdateFileAttributes($id, $file->getAttributes());
-			// }
-			// else{
-			// 	$newFile = new File();
-			// 	$newFile->filename = $filename;
-			// 	$newFile->title = $filename;
-			// 	return $this->file->createFile($newFile->getAttributes());
-			// }
 		}
 		else{
-			$newFile = Input::all();
-			return $this->file->createFile($newFile);
+			$input = Input::all();
+			$rules = array(
+			               'title' => 'Required'
+			               );
+
+			$v = Validator::make($input, $rules);
+			if( $v->passes() ) {
+				$newFile = Input::all();
+				return $this->file->createFile($newFile);
+			} 
+			
 		}
 	}
 

@@ -1,4 +1,5 @@
-<form role="form">
+<div class="alert alert-success" ng-show="savedSuccess">{{activeFile.filename}} Saved.</div>
+<form role="form" novalidate name="fileUploadForm">
 	<div class="form-group" >
 		<span class="btn btn-default btn-file">
 			Upload File
@@ -12,33 +13,36 @@
 		</div>
 	</div>	
 	<div class="form-group">
-		<label for="titleInput">Title</label>
-		<input type="text" id="titleInput" class="form-control" ng-model="activeFile.title"/>
+		<label for="titleInput">Title * </label>
+		<input type="text" id="titleInput" name="titleInput" class="form-control" required ng-model="activeFile.title"/>
+		<div ng-show="fileUploadForm.titleInput.$dirty && fileUploadForm.titleInput.$invalid">
+				<ul>
+					<li ng-show="fileUploadForm.titleInput.$error.required" >You must enter a title.</li>
+				</ul>
+			</div>
 	</div>
 	<div class="form-group">
 		<label for="categoryInput">Category</label>
-		<select  ui-select2 ng-model="activeFile.category" 
-		style="width:100%" >
-		 <option value="">-- Select a Category --</option>
-		 <option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
-	</select>
-</div>
-<div class="form-group">
-	<label for="subcategoryInput">Subcategory</label>
-	<select ui-select2 ng-model="activeFile.subcategory"
-	style="width:100%">
-	 <option value="">-- Select a Subcategory --</option>
-	 <option ng-repeat="subcategory in subcategories[activeFile.category]" value="{{subcategory}}">{{subcategory}}</option>
-</select>
-</div>
-<div class="form-group">
-	<label for="descriptionInput">Description</label>
-	<textarea id="descriptionInput" class="form-control" ng-model="activeFile.description" style="height:150px"></textarea>			
-</div>
-<div class="form-group">
-	<label for="displayOrderInput">Display Order</label>
-	<input type="text" id="displayOrderInput" class="form-control" ng-model="activeFile.display_order" />
-</div>
-<input type="submit" value="Save" class="btn btn-default" ng-click="submit()" />
-<button value="Delete" class="btn btn-danger" ng-click="deleteFile()">Delete</button>
+		<select  ui-select2 ng-model="activeFile.category" style="width:100%" >
+			<option value="">-- Select a Category --</option>
+			<option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="subcategoryInput">Subcategory</label>
+		<select ui-select2 ng-model="activeFile.subcategory" style="width:100%">
+			<option value="">-- Select a Subcategory --</option>
+			<option ng-repeat="subcategory in subcategories[activeFile.category]" value="{{subcategory}}">{{subcategory}}</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="descriptionInput">Description</label>
+		<textarea id="descriptionInput" class="form-control" ng-model="activeFile.description" style="height:150px"></textarea>			
+	</div>
+	<div class="form-group">
+		<label for="displayOrderInput">Display Order</label>
+		<input type="text" id="displayOrderInput" class="form-control" ng-model="activeFile.display_order" />
+	</div>
+	<input type="submit" value="Save" class="btn btn-default" ng-click="submit()" />
+	<button value="Delete" class="btn btn-danger" ng-click="deleteFile()" ng-show="activeFile.id">Delete</button>
 </form>
