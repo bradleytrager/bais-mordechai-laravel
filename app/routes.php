@@ -11,7 +11,17 @@ use Carbon\Carbon;
 | and give it the Closure to execute when that URI is requested.
 |
 */
-header('Access-Control-Allow-Origin: *');
+
+/*
+Handle cross-domain requests
+see http://stackoverflow.com/questions/14414896/laravel-handling-the-option-http-method-request
+ */
+header('Access-Control-Allow-Origin : *');
+
+if ($_SERVER['REQUEST_METHOD']=='OPTIONS') {
+header('Access-Control-Allow-Methods : POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers : X-Requested-With, content-type');
+}
 
 Route::get('/', function(){
 	return View::make('index');

@@ -15,11 +15,11 @@ angular.module('app.controllers', ['angularFileUpload'])
 		$scope.whatsNew = whatsNew;
 		console.log(whatsNew);
 	})
-	.controller('contactController', function($scope, $http) {
+	.controller('contactController', function($scope, $http, webServiceURL) {
 		$scope.submit = function(message) {
 			if ($scope.contactForm.$valid) {
 				console.log(message);
-				$http.post("/contact/", message).then(function(response) {
+				$http.post(webServiceURL +"/contact/", message).then(function(response) {
 					alert("Thank you, your message has been submitted");
 					$scope.contactForm.$setPristine();
 					$scope.message = {};
@@ -83,7 +83,18 @@ angular.module('app.controllers', ['angularFileUpload'])
 			});
 		};
 	})
-	.controller('DashboardFileController', function($scope, $http, $upload, $timeout, $state, filesService, file) {
+	.controller('DashboardFileController', function($scope, $upload, $timeout, $state, filesService, file, maxFileUploadSize) {
+		/**
+		
+			TODO:Get authentication to work cross domian
+			- http://stackoverflow.com/questions/17959563/how-do-i-get-basic-auth-working-in-angularjs
+			- https://github.com/angular/angular.js/issues/3406
+			- http://stackoverflow.com/questions/11876777/angularjs-set-http-header-for-one-request
+			- http://stackoverflow.com/questions/15598917/adding-a-custom-header-to-http-request-using-angular-js
+		
+		**/
+		
+
 		$scope.savedSuccess = false;
 		$scope.activeFile = file;
 		$scope.categories = BaisMordechai.categories;
@@ -130,13 +141,13 @@ angular.module('app.controllers', ['angularFileUpload'])
 			$scope.uploadProgressDisplay = 1;
 			var file = $file[0];
 			$scope.upload = $upload.upload({
-				url: 'files',
+				url: webServiceURL + 'files',
 				file: file
 			}).progress(function(evt) {
 				var progress = parseInt(100.0 * evt.loaded / evt.total, 10);
 				$scope.uploadProgressDisplay = progress;
 			}).success(function(response, status, headers, config) {
-				if (file.size < 35000000) {
+				if (file.size < maxFileUploadSize) {
 					$scope.activeFile.filename = file.name;
 				} else {
 					alert("The file you are trying to upload is too large.")

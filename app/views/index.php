@@ -71,7 +71,7 @@
         border-top:1px solid #2c3e50;
     }
     div.jp-audio ul.jp-controls {
-        padding-left:5px;
+        padding-left:30px;
     }
     a.jp-stop {
         margin-left:0;

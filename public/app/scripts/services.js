@@ -1,15 +1,15 @@
 angular.module('app.services', [])
-	.value('version', '0.1')
+	.constant('webServiceURL', "http://localhost:8000")
+	.constant('maxFileUploadSize', 35000000)
 	/**
 	 * Prevent auto-scrolling to top on state change
 	 * https://github.com/angular-ui/ui-router/issues/110#issuecomment-18052396
 	 */
 	.value('$anchorScroll', angular.noop)
-	.service("filesService", function($http, $q) {
-		var BASE_PATH = "http://localhost:8000";
+	.service("filesService", function($http, $q, webServiceURL) {
 		this.getFileByCategory = function(category, subcategory, id) {
 			var deferred = $q.defer();
-			$http.get(BASE_PATH + '/files/' + category + '/' + subcategory + '/' + id).success(function(file) {
+			$http.get(webServiceURL + '/files/' + category + '/' + subcategory + '/' + id).success(function(file) {
 				var path = 'uploads/';
 				file.filename = path + file.filename;
 				deferred.resolve(file);
@@ -19,20 +19,20 @@ angular.module('app.services', [])
 		};
 
 		this.getFilesByCategory = function(category, subcategory) {
-			return $http.get(BASE_PATH + '/files/' + category + '/' + subcategory).then(function(response) {
+			return $http.get(webServiceURL + '/files/' + category + '/' + subcategory).then(function(response) {
 				return response.data;
 			});
 		};
 
 		this.getAllFiles = function() {
-			return $http.get(BASE_PATH + '/files').then(function(response) {
+			return $http.get(webServiceURL + '/files').then(function(response) {
 				return response.data;
 			});
 		};
 
 		this.getFileById = function(id) {
 			if (id) {
-				return $http.get(BASE_PATH + '/files/' + id).then(function(response) {
+				return $http.get(webServiceURL + '/files/' + id).then(function(response) {
 					return response.data;
 				});
 			} else {
@@ -42,19 +42,19 @@ angular.module('app.services', [])
 		};
 
 		this.createFile = function(file) {
-			return $http.post("/files", file).then(function(response) {
+			return $http.post(webServiceURL +"/files", file).then(function(response) {
 				return response.data;
 			});
 		};
 
 		this.updateFile = function(file) {
-			return $http.put("/files/" + file.id, file).then(function(response) {
+			return $http.put(webServiceURL +"/files/" + file.id, file).then(function(response) {
 				return response.data;
 			});
 		};
 
 		this.deleteFile = function(file) {
-			return $http.delete("/files/" + file.id);
+			return $http.delete(webServiceURL +"/files/" + file.id);
 		};
 	})
 	.service('breadcrumbService', function($rootScope, filesService) {
