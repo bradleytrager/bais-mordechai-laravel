@@ -1,5 +1,5 @@
 angular.module('app.services', [])
-	.constant('webServiceURL', "http://localhost:8000")
+	.constant('webServiceURL', "http://162.243.247.191/")
 	.constant('maxFileUploadSize', 35000000)
 	/**
 	 * Prevent auto-scrolling to top on state change

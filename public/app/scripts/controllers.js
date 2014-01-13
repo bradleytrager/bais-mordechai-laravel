@@ -83,7 +83,7 @@ angular.module('app.controllers', ['angularFileUpload'])
 			});
 		};
 	})
-	.controller('DashboardFileController', function($scope, $upload, $timeout, $state, filesService, file, maxFileUploadSize) {
+	.controller('DashboardFileController', function($scope, $upload, $timeout, $state, filesService, file, maxFileUploadSize, webServiceURL) {
 		/**
 		
 			TODO:Get authentication to work cross domian
