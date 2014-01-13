@@ -74,7 +74,7 @@ class DbFileRepository implements FileRepositoryInterface{
 	public function saveUploadedFile($file, $filename){
 		$originalFileName = $file->getClientOriginalName();
 		$clientOriginalExtension = $file->getClientOriginalExtension();
-		$file->move('public/uploads', $filename);
+		$file->move($_SERVER['DOCUMENT_ROOT'].'/uploads', $filename);
 		return "file saved";
 	}
 
