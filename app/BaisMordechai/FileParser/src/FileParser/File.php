@@ -18,10 +18,10 @@ class File implements \IteratorAggregate
 	 * @return Iterator
 	 */
 	public function getIterator(){
-		$format = explode('.', $this->filename)[1];
+		$format = explode('.', $this->filename);
 
         // construct our class name and check its existence  
-		$fileIteratorClass= "BaisMordechai\\FileParser\\src\\FileParser\\". ucfirst($format). "FileIterator";
+		$fileIteratorClass= "BaisMordechai\\FileParser\\src\\FileParser\\". ucfirst($format[1]). "FileIterator";
 
 		if(class_exists($fileIteratorClass)) {  
             // return a new Iterator object  
