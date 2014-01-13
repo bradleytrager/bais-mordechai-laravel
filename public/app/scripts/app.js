@@ -34,7 +34,7 @@ app.config(function($stateProvider, $urlRouterProvider, $controllerProvider, web
 		})
 		.state('dashboard', {
 			url: '/dashboard',
-			templateUrl: '/dashboard',
+			templateUrl: webServiceURL + '/dashboard',
 			controller: "DashboardController",
 			resolve: {
 				files: function(filesService) {
