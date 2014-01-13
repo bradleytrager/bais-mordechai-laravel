@@ -19,6 +19,7 @@
     "ng-file-upload": "git://github.com/danialfarid/angular-file-upload-bower.git",
     "angular-typeahead": "git://github.com/Siyfion/angular-typeahead.git",
     "jplayer": "git://github.com/happyworm/jPlayer.git",
-    "momentjs": "~2.5.0"
+    "momentjs": "~2.5.0",
+    "angular-ui-select2":"git://github.com/angular-ui/ui-select2.git"
   }
 }

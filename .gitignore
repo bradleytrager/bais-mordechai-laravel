@@ -1,4 +1,4 @@
-/app/config/database.php
+/app/config
 /bootstrap/compiled.php
 /vendor
 /public/app/vendor
