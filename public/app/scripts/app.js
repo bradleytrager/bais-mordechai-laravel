@@ -13,7 +13,12 @@ app.run(function($rootScope, $state, $stateParams) {
 	$rootScope.$stateParams = $stateParams;
 });
 
-app.config(function($stateProvider, $urlRouterProvider, $controllerProvider, webServiceURL) {
+app.config(function($stateProvider, $urlRouterProvider, $controllerProvider, $httpProvider, webServiceURL) {
+	/*
+	Prompt for credentials:
+	http://stackoverflow.com/questions/13734686/communication-between-angularjs-and-a-jersey-webservice-which-are-on-a-different/14111039#14111039
+	 */
+	$httpProvider.defaults.withCredentials = true;
 	$stateProvider
 		.state('home', {
 			url: '/',
