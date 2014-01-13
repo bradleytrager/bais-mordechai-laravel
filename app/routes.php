@@ -16,10 +16,10 @@ use Carbon\Carbon;
 Handle cross-domain requests
 see http://stackoverflow.com/questions/14414896/laravel-handling-the-option-http-method-request
  */
-header('Access-Control-Allow-Origin : *');
+header('Access-Control-Allow-Origin : http://bais-mordechai.com');
 header('Access-Control-Allow-Methods : POST, GET, OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers : X-Requested-With, content-type');
-header('WWW-Authenticate:Digest');
+header('Access-Control-Allow-Credentials: true');
 Route::get('/', function(){
 	return View::make('index');
 });
