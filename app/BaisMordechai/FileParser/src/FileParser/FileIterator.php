@@ -13,7 +13,7 @@ abstract class FileIterator
 	public function __construct($filename)
 	{
 		$this->position = 0;
-		$file = fopen($filename, "r");
+		$file = fopen($_SERVER['DOCUMENT_ROOT'].$filename, "r");
 		$fileBuffer = array();
 
 		while(!feof($file))
