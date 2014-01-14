@@ -10,10 +10,19 @@ angular.module('app.controllers', ['angularFileUpload'])
 			$scope.breadcrumbs = breadcrumbService.getBreadcrumbs($state, $stateParams);
 		});
 	})
-	.controller('HomeController', function($scope, currentParashah, whatsNew) {
+	.controller('HomeController', function($scope, $filter, currentParashah, whatsNew) {
 		$scope.currentParashah = currentParashah;
-		$scope.whatsNew = whatsNew;
-		console.log(whatsNew);
+		$scope.whatsNew = [];
+		angular.forEach(whatsNew, function(item){
+			console.log($scope.whatsNew);
+			$scope.whatsNew.push({
+				category: $filter('tolower')(item.category),
+				subcategory: $filter('tolower')(item.subcategory),
+				title: item.title,
+				created_at:item.created_at
+			})
+		});
+		console.log($scope.whatsNew);
 	})
 	.controller('contactController', function($scope, $http, webServiceURL) {
 		$scope.submit = function(message) {
@@ -84,17 +93,6 @@ angular.module('app.controllers', ['angularFileUpload'])
 		};
 	})
 	.controller('DashboardFileController', function($scope, $upload, $timeout, $state, filesService, file, maxFileUploadSize, webServiceURL) {
-		/**
-		
-			TODO:Get authentication to work cross domian
-			- http://stackoverflow.com/questions/17959563/how-do-i-get-basic-auth-working-in-angularjs
-			- https://github.com/angular/angular.js/issues/3406
-			- http://stackoverflow.com/questions/11876777/angularjs-set-http-header-for-one-request
-			- http://stackoverflow.com/questions/15598917/adding-a-custom-header-to-http-request-using-angular-js
-		
-		**/
-		
-
 		$scope.savedSuccess = false;
 		$scope.activeFile = file;
 		$scope.categories = BaisMordechai.categories;

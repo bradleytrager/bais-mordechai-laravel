@@ -17,9 +17,12 @@ Handle cross-domain requests
 see http://stackoverflow.com/questions/14414896/laravel-handling-the-option-http-method-request
  */
 header('Access-Control-Allow-Origin : http://bais-mordechai.com');
+// header('Access-Control-Allow-Origin : http://www.bais-mordechai.com');
+// header('Access-Control-Allow-Origin : http://localhost');
 header('Access-Control-Allow-Methods : POST, GET, OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers : X-Requested-With, content-type');
 header('Access-Control-Allow-Credentials: true');
+
 Route::get('/', function(){
 	return View::make('index');
 });
@@ -62,21 +65,25 @@ Route::get('whats_new', function(){
 
 //Mail::pretend();
 
+/**
+
+	TODO: Get Mail Working
+	- https://www.digitalocean.com/community/articles/how-to-use-gmail-or-yahoo-with-php-mail-function
+	- Second todo item
+
+**/
+
 Route::post('contact', function(){
 	$data=Input::all();
-
 	Mail::send('emails.contact', $data, function($message) use ($data)
 	{
 		$message->from($data["email"]);
-		$message->to('binyomintrager@gmail.com')->cc('bradleytrager@gmail.com');
+		$message->to('binyomintrager@gmail.com', 'Binyomin Trager');
 		$message->subject($data["subject"]);
 	});
 	return $data;
 });
-Route::get("uploads/{filename}", function(){
-	header('Content-Type:audio/mpeg');
-	return "hello";
-});
+
 App::missing(function($exception)
 {
 	return "Sorry, the page you are looking for does not exist.";
