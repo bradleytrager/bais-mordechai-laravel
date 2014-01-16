@@ -16,12 +16,19 @@ use Carbon\Carbon;
 Handle cross-domain requests
 see http://stackoverflow.com/questions/14414896/laravel-handling-the-option-http-method-request
  */
-header('Access-Control-Allow-Origin : http://bais-mordechai.com');
+// header('Access-Control-Allow-Origin: '. $_SERVER['HTTP_ORIGIN'] );
+header('Access-Control-Allow-Origin: '. $_SERVER['HTTP_ORIGIN'] );
+header('Access-Control-Allow-Credentials: true' );
+header('Access-Control-Request-Method: *');
+header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: *,x-requested-with,Content-Type');
+header('X-Frame-Options: DENY');
+// header('Access-Control-Allow-Origin : http://bais-mordechai.com');
 // header('Access-Control-Allow-Origin : http://www.bais-mordechai.com');
 // header('Access-Control-Allow-Origin : http://localhost');
-header('Access-Control-Allow-Methods : POST, GET, OPTIONS, PUT, DELETE');
-header('Access-Control-Allow-Headers : X-Requested-With, content-type');
-header('Access-Control-Allow-Credentials: true');
+// header('Access-Control-Allow-Methods : POST, GET, OPTIONS, PUT, DELETE');
+// header('Access-Control-Allow-Headers : X-Requested-With, content-type');
+// header('Access-Control-Allow-Credentials: true');
 
 Route::get('/', function(){
 	return View::make('index');
@@ -71,20 +78,20 @@ Route::get('whats_new', function(){
 	- https://www.digitalocean.com/community/articles/how-to-use-gmail-or-yahoo-with-php-mail-function
 	- Second todo item
 
-**/
+	**/
 
-Route::post('contact', function(){
-	$data=Input::all();
-	Mail::send('emails.contact', $data, function($message) use ($data)
-	{
-		$message->from($data["email"]);
-		$message->to('binyomintrager@gmail.com', 'Binyomin Trager');
-		$message->subject($data["subject"]);
+	Route::post('contact', function(){
+		$data=Input::all();
+		Mail::send('emails.contact', $data, function($message) use ($data)
+		{
+			$message->from($data["email"]);
+			$message->to('binyomintrager@gmail.com', 'Binyomin Trager');
+			$message->subject($data["subject"]);
+		});
+		return $data;
 	});
-	return $data;
-});
 
-App::missing(function($exception)
-{
-	return "Sorry, the page you are looking for does not exist.";
-});
+	App::missing(function($exception)
+	{
+		return "Sorry, the page you are looking for does not exist.";
+	});

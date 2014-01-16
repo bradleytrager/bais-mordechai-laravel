@@ -34,7 +34,7 @@ class FilesController extends \BaseController {
 		{
 			$file = Input::file('file');
 			$filename = Input::file('file')->getClientOriginalName();
-			$this->file->saveUploadedFile($file, $filename);
+			return $this->file->saveUploadedFile($file, $filename);
 			
 		}
 		else{

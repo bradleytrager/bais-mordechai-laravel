@@ -13,40 +13,56 @@ angular.module('app.controllers', ['angularFileUpload'])
 	.controller('HomeController', function($scope, $filter, currentParashah, whatsNew) {
 		$scope.currentParashah = currentParashah;
 		$scope.whatsNew = [];
-		angular.forEach(whatsNew, function(item){
-			console.log($scope.whatsNew);
+		angular.forEach(whatsNew, function(item) {
 			$scope.whatsNew.push({
 				category: $filter('tolower')(item.category),
 				subcategory: $filter('tolower')(item.subcategory),
 				title: item.title,
-				created_at:item.created_at
+				created_at: item.created_at
 			})
 		});
-		console.log($scope.whatsNew);
 	})
 	.controller('contactController', function($scope, $http, webServiceURL) {
 		$scope.submit = function(message) {
 			if ($scope.contactForm.$valid) {
 				console.log(message);
-				$http.post(webServiceURL +"/contact/", message).then(function(response) {
+				$http.post(webServiceURL + "/contact/", message).then(function(response) {
 					alert("Thank you, your message has been submitted");
 					$scope.contactForm.$setPristine();
 					$scope.message = {};
 				});
 			} else {
 				alert("Please fix requiered fields.");
-				//console.log($scope.contactForm);
 			}
 		};
 	})
-	.controller('FilesController', function($scope, $stateParams, $filter, files) {
+	.controller('FilesController', function($scope, $stateParams, $filter, $sce, files, webServiceURL) {
 		$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
+		angular.forEach(files, function(file) {
+			file.filename = 'uploads/' + file.filename;
+			file.oggFilename = file.filename.split(".")[0] + ".ogg";
+			file.oggFilename = webServiceURL + file.oggFilename;
+			file.filename = webServiceURL + file.filename;
+		});
 		$scope.files = files;
+		$scope.trustSrc = function(src) {
+			return $sce.trustAsResourceUrl(src);
+		};
+		console.log($scope.files);
+		
 
 	})
-	.controller('FileController', function($scope, file, $stateParams, $state) {
-		console.log(file);
+	.controller('FileController', function($scope, file, $stateParams, $state, $sce, webServiceURL) {
+		file.oggFilename = file.filename.split(".")[0] + ".ogg";
+		file.oggFilename = webServiceURL + file.oggFilename;
+		file.filename = webServiceURL + file.filename;
+
+		//console.log(file);
+		$scope.trustSrc = function(src) {
+			return $sce.trustAsResourceUrl(src);
+		};
 		$scope.file = file;
+		console.log($scope.file);
 		var currentIndex;
 		angular.forEach($scope.files, function(file, index) {
 			if (file.id == $scope.file.id) {
@@ -82,7 +98,9 @@ angular.module('app.controllers', ['angularFileUpload'])
 
 			}
 		};
+				//console.log("currentIndex","audioPlayer" + currentIndex);
 
+		
 	})
 	.controller('DashboardController', function($scope, filesService, files) {
 		$scope.files = files;

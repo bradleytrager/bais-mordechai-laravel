@@ -1,7 +1,7 @@
 <h1>{{subcategory | ucfirst}}</h1>
 <div class="col-md-4">
 	<div class="list-group"  >
-		<a ng-repeat="file in files | filter:search |orderBy:['display_order', 'title']"
+		<a ng-repeat="file in files"
 		ui-sref='listen.category.subcategory.item({id: file.title})' class="list-group-item" 
 		ui-sref-active="active">
 		{{ file.title }}

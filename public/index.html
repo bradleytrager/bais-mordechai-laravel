@@ -85,6 +85,9 @@
     div.jp-audio div.jp-type-single div.jp-time-holder {
         left: 140px;
     }
+    .hide{
+        visibility: hidden;
+    }
     </style>
 </head>
 <body>
@@ -120,7 +123,7 @@
 
         </div>
     </nav>
-    <div class="container">
+    <div class="container" ng-cloak>
         <div class="row">
             <ol class="breadcrumb" ng-controller="BreadCrumbController">
                 <li ng-repeat="breadcrumb in breadcrumbs">

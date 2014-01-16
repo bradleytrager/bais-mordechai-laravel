@@ -1,5 +1,15 @@
 <div class="col-md-8">
 	<h1>{{file.title}}</h1>
-	<jplayer src="{{file.filename}}" title="{{file.title}}" next="next()" previous="previous()"></jplayer>
-	<p>{{file.description}}</p>
-</div>
+<!-- 	<jplayer src="{{trustSrc(file.filename)}}" title="{{file.title}}" next="next()" previous="previous()"></jplayer>
+-->	
+<div ng-repeat="_file in files">
+		<audio id="audioPlayer{{$index}}" controls ng-hide="!(_file.id == file.id)">
+	<source src="{{trustSrc(_file.oggFilename)}}" type="audio/ogg">
+		<source src="{{trustSrc(_file.filename)}}" type="audio/mpeg">
+			Your browser does not support the audio tag.
+		</audio>
+	</div>
+		<p>{{file.description}}</p>
+	</div>
+
+	

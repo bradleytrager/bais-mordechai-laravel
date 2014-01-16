@@ -16,21 +16,21 @@
 -- Table structure for table `descriptions`
 -- 
 
-CREATE TABLE `descriptions` (
-  `number` smallint(6) DEFAULT NULL,
-  `filename` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` varchar(1023) NOT NULL,
-  `ultime` date NOT NULL DEFAULT '2012-08-01',
-  `dir` varchar(255) NOT NULL DEFAULT 'mp3/NC/',
-  `parashah` varchar(255) NOT NULL,
-  PRIMARY KEY (`filename`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+-- CREATE TABLE `descriptions` (
+--   `number` smallint(6) DEFAULT NULL,
+--   `filename` varchar(255) NOT NULL,
+--   `title` varchar(255) NOT NULL,
+--   `description` varchar(1023) NOT NULL,
+--   `ultime` date NOT NULL DEFAULT '2012-08-01',
+--   `dir` varchar(255) NOT NULL DEFAULT 'mp3/NC/',
+--   `parashah` varchar(255) NOT NULL,
+--   PRIMARY KEY (`filename`)
+-- ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
--- Dumping data for table `descriptions`
--- 
-()
+-- -- 
+-- -- Dumping data for table `descriptions`
+-- -- 
+-- ()
 INSERT INTO `files` (`display_order`,`filename`,`title`,`description`,`created_at`,`path`,`subcategory`) 
 
 VALUES
@@ -391,4 +391,10 @@ VALUES
  (4, 'kiddush.MP3', 'Kiddush', '', '2012-08-01', 'mp3/chazanus/', 'mp3/chazanus/'),
  (4, 'trup-haftorah.MP3', 'Haftorah Trop', '', '2012-08-01', 'mp3/chazanus/', 'Leading Services'),
  (5, 'Vayeishev 5.mp3', 'Vayeishev 5', 'Chp. 38 verses 1 - 25: Yehudah marries and he has three children. Two of them die while being married to Tamar. He tells her that she should wait for the third son to become older and then he would marry her, but it was only a ruse. Yehudah''s wife dies and he goes to Timna to shear his sheep. Tamar disguises herself as a harlot, waits for him on the road, and she seduces him. She takes three items from him as surety for payment of her services. He sends his friend to pay the debt and retrieve his things, but no harlot can be found. Tamar conceives twins and he wants to put her to death because of her harlotry. She sends him the three items that she had taken for collateral and says that she is pregnant from the man who owns these. ', '2013-12-11', 'mp3/NC/', 'Vayeishev'),
- (6, 'Vayeishev 6.mp3', 'Vayeishev 6', 'Chp. 38 verses 26 - 30 Chp. 39 verses 1 - 23: Continues with Yehuda''s admission that he was the one who had impregnated Tamar. She gives birth to twins. Chp. 39 returns to the story of Yosef being sold into slavery. He is successful in his masters house and Hashem is with him in all that he does. His masters wife tries to seduce him and when he refuses she accuses him of rape. He is sent to the royal prison. Hashem is with him even there and he finds favor in the warden''s eyes and he is in charge of everything that goes on in the prison. ', '2013-12-18', 'mp3/NC/', 'Vayeishev');
+ (6, 'Vayeishev 6.mp3', 'Vayeishev 6', 'Chp. 38 verses 26 - 30 Chp. 39 verses 1 - 23: Continues with Yehuda''s admission that he was the one who had impregnated Tamar. She gives birth to twins. Chp. 39 returns to the story of Yosef being sold into slavery. He is successful in his masters house and Hashem is with him in all that he does. His masters wife tries to seduce him and when he refuses she accuses him of rape. He is sent to the royal prison. Hashem is with him even there and he finds favor in the warden''s eyes and he is in charge of everything that goes on in the prison. ', '2013-12-18', 'mp3/NC/', 'Vayeishev'),
+ (7, 'Vayeishev 7.mp3', 'Vayeishev 7', 'Chp. 40 verses 1 - 23: The chief butler and baker are put into the same prison with Yosef. They both have a dream and he interprets their dreams. He tells the baker that he will be hung and the butler that he will be reinstated, and his prediction comes true. He asks the butler to remember him to Pharoah but he forgets. ', '2013-12-25', 'mp3/NC/', 'Vayeishev'),
+ (0, 'Kaddish.mp3', 'Kaddish', 'mourners kaddish', '2013-12-27', 'mp3/chazanus/', 'Leading Services'),
+ (0, 'kaddish d''rabbanim.mp3', 'kaddish d''rabbanim', 'kaddish d''rabbanim', '2013-12-27', 'mp3/chazanus/', 'Leading Services'),
+ (1, 'Mikeitz 1.mp3', 'Mikeitz 1', 'Chap. 41 verses 1 - 13: Introduction, Pharaoh has two dreams and no one is able to interpret them to his satisfaction. The butler finally remembers Yosef to Pharaoh as he promised.', '2014-01-08', 'mp3/NC/', 'Mikeitz')
+
+ ;

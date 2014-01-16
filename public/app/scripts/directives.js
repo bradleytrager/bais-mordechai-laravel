@@ -17,7 +17,7 @@ angular.module('app.directives', [])
 					element.jPlayer({
 						ready: function(event) {
 							$(this).jPlayer("setMedia", {
-								oga: attrs.src,
+								//oga: attrs.src,
 								mp3: attrs.src
 							}).jPlayer("play");
 						},
@@ -25,7 +25,7 @@ angular.module('app.directives', [])
 							scope.next();
 						},
 						swfPath: "app/vendor/jplayer/flash/",
-						supplied: "mp3,oga",
+						supplied: "mp3",//,oga",
 						wmode: "window",
 						smoothPlayBar: true,
 						keyEnabled: true
