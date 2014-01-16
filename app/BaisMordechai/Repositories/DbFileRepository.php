@@ -22,7 +22,7 @@ class DbFileRepository implements FileRepositoryInterface{
 		if($subcategory != 'all'){
 			$files->where('subcategory', $subcategory);
 		}
-
+		$files = $files->orderBy('display_order')->orderBy('created_at');
 		return $files->get();
 	}
 
@@ -75,7 +75,11 @@ class DbFileRepository implements FileRepositoryInterface{
 		$originalFileName = $file->getClientOriginalName();
 		$clientOriginalExtension = $file->getClientOriginalExtension();
 		$file->move($_SERVER['DOCUMENT_ROOT'].'/uploads', $filename);
-		return "file saved";
+		//make ogg equivalent
+		$command = 'dir2ogg /var/www/bais-mordechai-laravel/public/uploads/"'.$filename.'"';
+		$output = exec($command);
+		echo "output = ".$output.", command = ".$command;
+		//return "file saved";
 	}
 
 }
