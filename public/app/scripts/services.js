@@ -1,6 +1,6 @@
 angular.module('app.services', [])
 	.constant('webServiceURL', "http://162.243.247.191/")
-	.constant('maxFileUploadSize', 35000000)
+	.constant('maxFileUploadSize', 128000000)
 	/**
 	 * Prevent auto-scrolling to top on state change
 	 * https://github.com/angular-ui/ui-router/issues/110#issuecomment-18052396
