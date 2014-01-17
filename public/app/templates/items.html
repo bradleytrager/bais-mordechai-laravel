@@ -1,11 +1,30 @@
 <h1>{{subcategory | ucfirst}}</h1>
-<div class="col-md-4">
+
+<!-- <div class="col-md-8 col-md-push-4" >
+	
+
+	<div ng-repeat="_file in files" ng-hide="currentIndex != $index" >
+		<h1>{{_file.title}}</h1>
+		<audio playlist next="next($index)" play="play($index)" id="audioPlayer{{$index}}" controls>
+			<source src="{{trustSrc(_file.oggFilename)}}" type="audio/ogg" />
+			<source src="{{trustSrc(_file.filename)}}" type="audio/mpeg" /> 
+			Your browser does not support the audio tag.
+		</audio>
+		<p>{{_file.description}}</p>
+	</div>
+	
+</div> -->
+<ui-view></ui-view>
+<div class="col-md-8 col-md-push-4" >
+	<jplaylist playlist="playlist"></jplaylist>
+</div>
+<div class="col-md-4 col-md-pull-8">
 	<div class="list-group"  >
 		<a ng-repeat="file in files"
 		ui-sref='listen.category.subcategory.item({id: file.title})' class="list-group-item" 
-		ui-sref-active="active">
+		ui-sref-active="active"
+		ng-click="play($index)">
 		{{ file.title }}
 	</a>
 </div>
 </div>
-<ui-view class="ngPartialSlideReveal"></ui-view>

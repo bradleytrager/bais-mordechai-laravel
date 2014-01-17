@@ -1,8 +1,7 @@
 angular.module('app.controllers', ['angularFileUpload'])
 	.controller('AppController', function($scope, $rootScope, $state, $stateParams, $http) {
-		$rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
-			console.log(rejection);
-		});
+		$rootScope.$stateParams = $stateParams;
+		console.log($scope.$stateParams);
 	})
 	.controller('BreadCrumbController', function($scope, $state, $stateParams, breadcrumbService) {
 		$scope.breadcrumbs = [];
@@ -19,7 +18,7 @@ angular.module('app.controllers', ['angularFileUpload'])
 				subcategory: $filter('tolower')(item.subcategory),
 				title: item.title,
 				created_at: item.created_at
-			})
+			});
 		});
 	})
 	.controller('contactController', function($scope, $http, webServiceURL) {
@@ -36,21 +35,65 @@ angular.module('app.controllers', ['angularFileUpload'])
 			}
 		};
 	})
-	.controller('FilesController', function($scope, $stateParams, $filter, $sce, files, webServiceURL) {
+	.controller('FilesController', function($scope, $rootScope, $stateParams, $state, $filter, $sce, files, webServiceURL) {
 		$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
+		//Append 
 		angular.forEach(files, function(file) {
 			file.filename = 'uploads/' + file.filename;
 			file.oggFilename = file.filename.split(".")[0] + ".ogg";
 			file.oggFilename = webServiceURL + file.oggFilename;
 			file.filename = webServiceURL + file.filename;
 		});
-		$scope.files = files;
+		// 
 		$scope.trustSrc = function(src) {
 			return $sce.trustAsResourceUrl(src);
 		};
-		console.log($scope.files);
-		
 
+		$scope.playlist = [];
+		angular.forEach(files, function(file){
+			$scope.playlist.push({
+				title:file.title,
+				mp3:file.filename
+			})
+		});
+		
+		$scope.currentIndex = 0;
+		$scope.wasInteraction = false;
+		$scope.isPlaying = false;
+		$scope.play = function(index) {
+			console.log("play");
+			if (!$scope.wasInteraction) {
+				angular.forEach(files, function(file, index) {
+					document.getElementById("audioPlayer" + index).play();
+					document.getElementById("audioPlayer" + index).pause();
+				});
+			}
+			$scope.wasInteraction = true;
+			if ($scope.isPlaying) {
+				document.getElementById("audioPlayer" + $scope.currentIndex).pause();
+			} else {
+				$scope.isPlaying = true;
+			}
+			// document.getElementById("audioPlayer" + index).focus();
+			// document.getElementById("audioPlayer" + index).load();
+			document.getElementById("audioPlayer" + index).play();
+			$scope.currentIndex = index;
+		};
+		$scope.files = files;
+		
+		$scope.next = function(index) {
+			if (index == files.length - 1) {
+				index = 0;
+			} else {
+				index++;
+			}
+			$scope.play(index);
+			$state.go('listen.category.subcategory.item', {
+				category: $stateParams.category,
+				subcategory: $stateParams.subcategory,
+				id: $scope.files[index].title
+			});
+		}
 	})
 	.controller('FileController', function($scope, file, $stateParams, $state, $sce, webServiceURL) {
 		file.oggFilename = file.filename.split(".")[0] + ".ogg";
@@ -62,7 +105,9 @@ angular.module('app.controllers', ['angularFileUpload'])
 			return $sce.trustAsResourceUrl(src);
 		};
 		$scope.file = file;
-		console.log($scope.file);
+		console.log($scope.currentItem);
+		$scope.currentItem = file;
+		console.log($scope.currentItem);
 		var currentIndex;
 		angular.forEach($scope.files, function(file, index) {
 			if (file.id == $scope.file.id) {
@@ -86,7 +131,7 @@ angular.module('app.controllers', ['angularFileUpload'])
 		};
 		$scope.previous = function() {
 			if (tracks > 0) {
-				if (currentIndex == 0) {
+				if (currentIndex === 0) {
 					currentIndex = tracks;
 				}
 				currentIndex--;
@@ -98,9 +143,9 @@ angular.module('app.controllers', ['angularFileUpload'])
 
 			}
 		};
-				//console.log("currentIndex","audioPlayer" + currentIndex);
+		//console.log("currentIndex","audioPlayer" + currentIndex);
 
-		
+
 	})
 	.controller('DashboardController', function($scope, filesService, files) {
 		$scope.files = files;
@@ -139,7 +184,7 @@ angular.module('app.controllers', ['angularFileUpload'])
 					});
 				}
 			} else {
-				alert("Please fix required fields.")
+				alert("Please fix required fields.");
 			}
 		};
 		$scope.deleteFile = function() {
@@ -166,11 +211,11 @@ angular.module('app.controllers', ['angularFileUpload'])
 				if (file.size < maxFileUploadSize) {
 					$scope.activeFile.filename = file.name;
 				} else {
-					alert("The file you are trying to upload is too large.")
+					alert("The file you are trying to upload is too large.");
 				}
 			})
 				.error(function() {
-					alert('An error occured when trying to upload.')
+					alert('An error occured when trying to upload.');
 				})
 				.then(function() {
 					$timeout(function() {
