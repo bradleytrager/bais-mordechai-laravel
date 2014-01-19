@@ -37,7 +37,7 @@ angular.module('app.controllers', ['angularFileUpload'])
 	})
 	.controller('FilesController', function($scope, $rootScope, $stateParams, $state, $filter, $sce, files, webServiceURL) {
 		$scope.subcategory = $filter('ucfirst')($stateParams.subcategory);
-		//Append 
+		//Append webservice url and specify ogg filename
 		angular.forEach(files, function(file) {
 			file.filename = 'uploads/' + file.filename;
 			file.oggFilename = file.filename.split(".")[0] + ".ogg";
@@ -45,10 +45,11 @@ angular.module('app.controllers', ['angularFileUpload'])
 			file.filename = webServiceURL + file.filename;
 		});
 		// 
-		$scope.trustSrc = function(src) {
-			return $sce.trustAsResourceUrl(src);
-		};
+		// $scope.trustSrc = function(src) {
+		// 	return $sce.trustAsResourceUrl(src);
+		// };
 
+		//Create playlist for jplayer
 		$scope.playlist = [];
 		angular.forEach(files, function(file){
 			$scope.playlist.push({
@@ -56,44 +57,46 @@ angular.module('app.controllers', ['angularFileUpload'])
 				mp3:file.filename
 			})
 		});
-		
+		$scope.select = function(index){
+			console.log(index);
+		}
 		$scope.currentIndex = 0;
-		$scope.wasInteraction = false;
-		$scope.isPlaying = false;
-		$scope.play = function(index) {
-			console.log("play");
-			if (!$scope.wasInteraction) {
-				angular.forEach(files, function(file, index) {
-					document.getElementById("audioPlayer" + index).play();
-					document.getElementById("audioPlayer" + index).pause();
-				});
-			}
-			$scope.wasInteraction = true;
-			if ($scope.isPlaying) {
-				document.getElementById("audioPlayer" + $scope.currentIndex).pause();
-			} else {
-				$scope.isPlaying = true;
-			}
-			// document.getElementById("audioPlayer" + index).focus();
-			// document.getElementById("audioPlayer" + index).load();
-			document.getElementById("audioPlayer" + index).play();
-			$scope.currentIndex = index;
-		};
+		// $scope.wasInteraction = false;
+		// $scope.isPlaying = false;
+		// $scope.play = function(index) {
+		// 	console.log("play");
+		// 	if (!$scope.wasInteraction) {
+		// 		angular.forEach(files, function(file, index) {
+		// 			document.getElementById("audioPlayer" + index).play();
+		// 			document.getElementById("audioPlayer" + index).pause();
+		// 		});
+		// 	}
+		// 	$scope.wasInteraction = true;
+		// 	if ($scope.isPlaying) {
+		// 		document.getElementById("audioPlayer" + $scope.currentIndex).pause();
+		// 	} else {
+		// 		$scope.isPlaying = true;
+		// 	}
+		// 	// document.getElementById("audioPlayer" + index).focus();
+		// 	// document.getElementById("audioPlayer" + index).load();
+		// 	document.getElementById("audioPlayer" + index).play();
+		// 	$scope.currentIndex = index;
+		// };
 		$scope.files = files;
 		
-		$scope.next = function(index) {
-			if (index == files.length - 1) {
-				index = 0;
-			} else {
-				index++;
-			}
-			$scope.play(index);
-			$state.go('listen.category.subcategory.item', {
-				category: $stateParams.category,
-				subcategory: $stateParams.subcategory,
-				id: $scope.files[index].title
-			});
-		}
+		// $scope.next = function(index) {
+		// 	if (index == files.length - 1) {
+		// 		index = 0;
+		// 	} else {
+		// 		index++;
+		// 	}
+		// 	$scope.play(index);
+		// 	$state.go('listen.category.subcategory.item', {
+		// 		category: $stateParams.category,
+		// 		subcategory: $stateParams.subcategory,
+		// 		id: $scope.files[index].title
+		// 	});
+		// }
 	})
 	.controller('FileController', function($scope, file, $stateParams, $state, $sce, webServiceURL) {
 		file.oggFilename = file.filename.split(".")[0] + ".ogg";
@@ -107,7 +110,8 @@ angular.module('app.controllers', ['angularFileUpload'])
 		$scope.file = file;
 		console.log($scope.currentItem);
 		$scope.currentItem = file;
-		console.log($scope.currentItem);
+
+		//console.log($scope.currentItem);
 		var currentIndex;
 		angular.forEach($scope.files, function(file, index) {
 			if (file.id == $scope.file.id) {
@@ -115,6 +119,7 @@ angular.module('app.controllers', ['angularFileUpload'])
 				currentIndex = index;
 			}
 		});
+		$scope.track = currentIndex;
 		var tracks = $scope.files.length;
 		$scope.next = function() {
 			if (tracks > 0) {

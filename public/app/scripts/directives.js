@@ -49,14 +49,16 @@ angular.module('app.directives', [])
 			}
 		};
 	})
-	.directive('jplaylist', function($http, $templateCache, $compile, $parse, $rootScope) {
+	.directive('jplaylist', function($http, $templateCache, $compile, $parse, $rootScope, $stateParams, $state) {
+
 		return {
 			restrict: 'E',
 			scope: {
-				playlist: '='
+				playlist: '=',
+				track: '=',
+				isActive:'='
 			},
 			link: function(scope, element, attrs) {
-				console.log(scope.playlist);
 				$http.get('app/templates/jplaylist.html', {
 					cache: $templateCache
 				}).success(function(tplContent) {
@@ -79,6 +81,24 @@ angular.module('app.directives', [])
 						keyEnabled: true,
 						audioFullScreen: true
 					});
+					//myPlaylist.play(scope.track);
+					// myPlaylist.select = function(index) {
+					// 	index = (index < 0) ? this.original.length + index : index; // Negative index relates to end of array.
+					// 	if (0 <= index && index < this.playlist.length) {
+					// 		this.current = index;
+					// 		this._highlight(index);
+					// 		$(this.cssSelector.jPlayer).jPlayer("setMedia", this.playlist[this.current]);
+					// 	} else {
+					// 		this.current = 0;
+					// 	}
+
+					// 	console.log(this.playlist[this.current].title);
+					// 	$state.go('listen.category.subcategory.item', {
+					// 		category: $stateParams.category,
+					// 		subcategory: $stateParams.subcategory,
+					// 		id: this.playlist[this.current].title
+					// 	});
+					// };
 				});
 			}
 		};
