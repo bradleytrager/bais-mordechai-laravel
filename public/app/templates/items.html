@@ -15,13 +15,15 @@
 	
 </div> -->
 <ui-view></ui-view>
-
+<div class="col-md-8 col-md-push-4" >
+	<jplaylist playlist="playlist" track="track"></jplaylist>
+</div>
 <div class="col-md-4 col-md-pull-8">
 	<div class="list-group"  >
 		<a ng-repeat="file in files"
 		ui-sref='listen.category.subcategory.item({id: file.title})' class="list-group-item" 
 		ui-sref-active="active"
-		ng-click="play($index)">
+		ng-click="$emit('changeTrack', $index)">
 		{{ file.title }}
 	</a>
 </div>

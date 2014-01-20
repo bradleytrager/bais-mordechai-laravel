@@ -1,7 +1,7 @@
 angular.module('app.controllers', ['angularFileUpload'])
 	.controller('AppController', function($scope, $rootScope, $state, $stateParams, $http) {
 		$rootScope.$stateParams = $stateParams;
-		console.log($scope.$stateParams);
+		// console.log($scope.$stateParams);
 	})
 	.controller('BreadCrumbController', function($scope, $state, $stateParams, breadcrumbService) {
 		$scope.breadcrumbs = [];
@@ -24,7 +24,7 @@ angular.module('app.controllers', ['angularFileUpload'])
 	.controller('contactController', function($scope, $http, webServiceURL) {
 		$scope.submit = function(message) {
 			if ($scope.contactForm.$valid) {
-				console.log(message);
+				//console.log(message);
 				$http.post(webServiceURL + "/contact/", message).then(function(response) {
 					alert("Thank you, your message has been submitted");
 					$scope.contactForm.$setPristine();
@@ -57,10 +57,10 @@ angular.module('app.controllers', ['angularFileUpload'])
 				mp3:file.filename
 			})
 		});
-		$scope.select = function(index){
-			console.log(index);
-		}
 		$scope.currentIndex = 0;
+		$scope.reload = function(){
+			$state.reload();
+		};
 		// $scope.wasInteraction = false;
 		// $scope.isPlaying = false;
 		// $scope.play = function(index) {
@@ -108,14 +108,14 @@ angular.module('app.controllers', ['angularFileUpload'])
 			return $sce.trustAsResourceUrl(src);
 		};
 		$scope.file = file;
-		console.log($scope.currentItem);
+		//console.log($scope.currentItem);
 		$scope.currentItem = file;
 
 		//console.log($scope.currentItem);
 		var currentIndex;
 		angular.forEach($scope.files, function(file, index) {
 			if (file.id == $scope.file.id) {
-				console.log(index);
+				//console.log(index);
 				currentIndex = index;
 			}
 		});

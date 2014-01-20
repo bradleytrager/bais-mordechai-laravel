@@ -55,10 +55,19 @@ angular.module('app.directives', [])
 			restrict: 'E',
 			scope: {
 				playlist: '=',
-				track: '=',
-				isActive:'='
+				track: '='
+				/**
+				
+					TODO:Update playlist on state change
+					//http://stackoverflow.com/questions/16881478/how-to-call-a-method-defined-in-an-angularjs-directive
+				
+				**/
+
 			},
 			link: function(scope, element, attrs) {
+				//debugger;
+				var self = this;
+				console.log("start link()");
 				$http.get('app/templates/jplaylist.html', {
 					cache: $templateCache
 				}).success(function(tplContent) {
@@ -81,24 +90,56 @@ angular.module('app.directives', [])
 						keyEnabled: true,
 						audioFullScreen: true
 					});
-					//myPlaylist.play(scope.track);
-					// myPlaylist.select = function(index) {
-					// 	index = (index < 0) ? this.original.length + index : index; // Negative index relates to end of array.
-					// 	if (0 <= index && index < this.playlist.length) {
-					// 		this.current = index;
-					// 		this._highlight(index);
-					// 		$(this.cssSelector.jPlayer).jPlayer("setMedia", this.playlist[this.current]);
-					// 	} else {
-					// 		this.current = 0;
-					// 	}
+					var track;
+					var getTrack = function() {
+						angular.forEach(scope.playlist, function(file, index) {
+							if (file.title == $stateParams.id) {
+								//console.log(index);
+								track = index;
+							}
+						});
+					};
+					getTrack();
 
-					// 	console.log(this.playlist[this.current].title);
-					// 	$state.go('listen.category.subcategory.item', {
-					// 		category: $stateParams.category,
-					// 		subcategory: $stateParams.subcategory,
-					// 		id: this.playlist[this.current].title
-					// 	});
-					// };
+					if (!self.isPlaying) {
+						myPlaylist.play(track);
+					}
+					$rootScope.$on('changeTrack', function(event, index) {
+						console.log(index);
+						myPlaylist.play(index);
+					});
+
+					myPlaylist.select = function(index) {
+						console.log("myPlaylist.select()");
+						index = (index < 0) ? this.original.length + index : index; // Negative index relates to end of array.
+						if (0 <= index && index < this.playlist.length) {
+							this.current = index;
+							this._highlight(index);
+							$(this.cssSelector.jPlayer).jPlayer("setMedia", this.playlist[this.current]);
+						} else {
+							this.current = 0;
+						}
+
+						console.log('this.playlist[this.current].title', this.playlist[this.current].title);
+						if (this.playlist[this.current].title != $stateParams.id) {
+							//debugger;
+							$state.go('listen.category.subcategory.item', {
+								category: $stateParams.category,
+								subcategory: $stateParams.subcategory,
+								id: this.playlist[this.current].title
+							});
+						}
+
+					};
+					self.isPlaying = false;
+					$(myPlaylist.cssSelector.jPlayer).unbind($.jPlayer.event.ended);
+					$(myPlaylist.cssSelector.jPlayer).bind($.jPlayer.event.ended, function() {
+						console.log("ended");
+						self.isPlaying = true;
+						console.log("isplaying", self.isPlaying);
+						myPlaylist.next();
+					});
+
 				});
 			}
 		};
