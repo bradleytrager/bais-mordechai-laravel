@@ -49,7 +49,7 @@ angular.module('app.directives', [])
 			}
 		};
 	})
-	.directive('jplaylist', function($http, $templateCache, $compile, $parse, $rootScope, $stateParams, $state) {
+	.directive('jplaylist', function($http, $templateCache, $compile, $parse, $rootScope, $stateParams, $state, $timeout) {
 
 		return {
 			restrict: 'E',
@@ -99,15 +99,23 @@ angular.module('app.directives', [])
 							}
 						});
 					};
-					getTrack();
-
-					if (!self.isPlaying) {
+					var play = function(track) {
 						myPlaylist.play(track);
-					}
-					$rootScope.$on('changeTrack', function(event, index) {
-						console.log(index);
-						myPlaylist.play(index);
+					};
+					getTrack();
+					play(track);
+					// if (!self.isPlaying) {
+					// 	play(track);
+					// }
+					$rootScope.$on('$stateChangeSuccess', function() {
+						if (myPlaylist.playlist[myPlaylist.current].title != $stateParams.id) {
+							getTrack();
+							play(track);
+						}
 					});
+					// $rootScope.$on('changeTrack', function(event, index) {
+					// 	play(index);
+					// });
 
 					myPlaylist.select = function(index) {
 						console.log("myPlaylist.select()");
@@ -131,14 +139,14 @@ angular.module('app.directives', [])
 						}
 
 					};
-					self.isPlaying = false;
-					$(myPlaylist.cssSelector.jPlayer).unbind($.jPlayer.event.ended);
-					$(myPlaylist.cssSelector.jPlayer).bind($.jPlayer.event.ended, function() {
-						console.log("ended");
-						self.isPlaying = true;
-						console.log("isplaying", self.isPlaying);
-						myPlaylist.next();
-					});
+					//self.isPlaying = false;
+					// $(myPlaylist.cssSelector.jPlayer).unbind($.jPlayer.event.ended);
+					// $(myPlaylist.cssSelector.jPlayer).bind($.jPlayer.event.ended, function() {
+					// 	console.log("ended");
+					// 	self.isPlaying = true;
+					// 	console.log("isplaying", self.isPlaying);
+					// 	myPlaylist.next();
+					// });
 
 				});
 			}
