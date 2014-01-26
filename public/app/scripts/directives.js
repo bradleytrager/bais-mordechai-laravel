@@ -108,7 +108,7 @@ angular.module('app.directives', [])
 					// 	play(track);
 					// }
 					$rootScope.$on('$stateChangeSuccess', function() {
-						if (myPlaylist.playlist[myPlaylist.current].title != $stateParams.id) {
+						if ($state.includes('listen.category.subcategory.item') && myPlaylist.playlist[myPlaylist.current].title != $stateParams.id) {
 							getTrack();
 							play(track);
 						}

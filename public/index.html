@@ -1,6 +1,7 @@
 <html ng-app="baisMordechai" ng-controller="AppController">
 <head>
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bais-Mordechai</title>
     <link rel="stylesheet" type="text/css" href="app/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="app/vendor/jplayer/skin/blue.monday/jplayer.blue.monday.css"  />
     <link rel="stylesheet" href="app/vendor/select2/select2.css">
@@ -60,9 +61,11 @@
           top: 0;
           opacity: 1;
       }
-      .no-gutter{
-          padding-left:0;
-          padding-right:0;
+      @media (min-width: 992px) {
+          .no-gutter{
+              padding-left:0;
+              padding-right:0;
+          }
       }
       .no-margin-top{
           margin-top:0;
@@ -123,7 +126,7 @@
 
         </div>
     </nav>
-    <div class="container" ng-cloak>
+    <div class="container">
         <div class="row">
             <ol class="breadcrumb" ng-controller="BreadCrumbController">
                 <li ng-repeat="breadcrumb in breadcrumbs">
