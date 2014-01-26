@@ -61,15 +61,15 @@ angular.module('app.services', [])
 		this.getBreadcrumbs = function($state, $stateParams) {
 			var breadcrumbs = [];
 
-			var states = (function() {
-				var states = [];
-				angular.forEach($state.get(), function(state) {
-					if (!state.abstract) {
-						states.push(state);
-					}
-				});
-				return states;
-			})();
+			// var states = (function() {
+			// 	var states = [];
+			// 	angular.forEach($state.get(), function(state) {
+			// 		if (!state.abstract) {
+			// 			states.push(state);
+			// 		}
+			// 	});
+			// 	return states;
+			// })();
 
 			var getName = function(stateName) {
 				var stateNameMapping = {
@@ -101,11 +101,43 @@ angular.module('app.services', [])
 				return stateNameMapping[stateName]();
 			};
 
+
+			var stateIncludes = function(stateName){
+				var inculudedStates = {
+					"home": function() {
+						return ["home"];
+					},
+					"dashboard": function() {
+						return ["home", "dashboard"];
+					},
+					"dashboard.item": function() {
+						return ["home", "dashboard", "dashboard.item"];
+					},
+					"listen.category": function() {
+						return ["home", "listen.category"];
+					},
+					"listen.category.subcategory": function() {
+						return ["home", "listen.category", "listen.category.subcategory"];
+					},
+					"listen.category.subcategory.item": function() {
+						return ["home", "listen.category", "listen.category.subcategory", "listen.category.subcategory.item"];
+					},
+					"page": function() {
+						return ["home", "page"];
+					},
+					"page.subpage": function() {
+						return ["home", "page", "page.subpage"];
+					}
+				};
+				return inculudedStates[stateName]();
+			};
+
+			var states = stateIncludes($state.current.name);
 			angular.forEach(states, function(state) {
-				if ($state.includes(state.name) && (state.name != $state.current.name)) {
+				if (state != $state.current.name) {
 					breadcrumbs.push({
-						name: getName(state.name),
-						url: $state.href(state.name)
+						name: getName(state),
+						url: $state.href(state)
 					});
 				}
 			});
@@ -113,7 +145,7 @@ angular.module('app.services', [])
 			breadcrumbs.push({
 				name: getName($state.current.name)
 			});
-
+			console.log("breadcrumbs",breadcrumbs);
 			return breadcrumbs;
 		};
 	});
