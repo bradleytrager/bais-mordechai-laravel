@@ -1,6 +1,7 @@
 <html ng-app="baisMordechai" ng-controller="AppController">
 <head>
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bais-Mordechai</title>
     <link rel="stylesheet" type="text/css" href="app/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="app/vendor/jplayer/skin/blue.monday/jplayer.blue.monday.css"  />
     <link rel="stylesheet" href="app/vendor/select2/select2.css">
@@ -60,9 +61,11 @@
           top: 0;
           opacity: 1;
       }
-      .no-gutter{
-          padding-left:0;
-          padding-right:0;
+      @media (min-width: 992px) {
+          .no-gutter{
+              padding-left:0;
+              padding-right:0;
+          }
       }
       .no-margin-top{
           margin-top:0;
@@ -85,6 +88,9 @@
     div.jp-audio div.jp-type-single div.jp-time-holder {
         left: 140px;
     }
+    .hide{
+        visibility: hidden;
+    }
     </style>
 </head>
 <body>
@@ -102,13 +108,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li ng-class="{active:$stateParams.category == 'shiurim'}">
-                    <a ui-sref="listen.category({category:'shiurim'})">Shiurim</a>
+                    <a ui-sref="category({category:'shiurim'})">Shiurim</a>
                 </li>
                 <li ng-class="{ active: $stateParams.category == 'music' }">
-                    <a ui-sref="listen.category({category:'music'})">Music</a>
+                    <a ui-sref="category({category:'music'})">Music</a>
                 </li>
                 <li ng-class="{ active: $stateParams.category == 'leading_services' }">
-                    <a ui-sref="listen.category({category:'leading_services'})">Leading Services</a>
+                    <a ui-sref="category({category:'leading_services'})">Leading Services</a>
                 </li>
                 <li ui-sref-active="active">
                     <a ui-sref="page({page:'contact'})">Contact</a>
@@ -124,8 +130,8 @@
         <div class="row">
             <ol class="breadcrumb" ng-controller="BreadCrumbController">
                 <li ng-repeat="breadcrumb in breadcrumbs">
-                    <a ng-href="{{breadcrumb.url}}" ng-if="breadcrumb.url">{{breadcrumb.name |ucfirst}}</a>
-                    <span ng-if="!breadcrumb.url">{{breadcrumb.name |ucfirst}}</span>
+                    <a ng-href="{{breadcrumb.url}}" ng-if="breadcrumb.url" ng-bind="breadcrumb.name |ucfirst"></a>
+                    <span ng-if="!breadcrumb.url" ng-bind="breadcrumb.name |ucfirst"></span>
                 </li>
             </ol>
         </div>
@@ -144,6 +150,8 @@
     <script type="text/javascript" src="app/vendor/ng-file-upload/angular-file-upload.js"></script>
     <script type="text/javascript" src="app/vendor/angular-typeahead/angular-typeahead.js"></script>
     <script type="text/javascript" src="app/vendor/jplayer/jquery.jplayer/jquery.jplayer.js"></script>
+    <script type="text/javascript" src="app/vendor/jplayer/add-on/jplayer.playlist.js"></script>
+
     <script type="text/javascript" src="app/vendor/momentjs/moment.js"></script>
 
     

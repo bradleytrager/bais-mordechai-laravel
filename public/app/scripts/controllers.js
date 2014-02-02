@@ -219,9 +219,9 @@ angular.module('app.controllers', ['angularFileUpload'])
 					alert("The file you are trying to upload is too large.");
 				}
 			})
-				.error(function() {
-					alert('An error occured when trying to upload.');
-				})
+		// .error(function() {
+		// 	alert('An error occured when trying to upload.');
+		// })
 				.then(function() {
 					$timeout(function() {
 						$scope.uploadProgressDisplay = 0;
