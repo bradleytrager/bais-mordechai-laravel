@@ -1,11 +1,11 @@
 angular.module('app.services', [])
 	.constant('webServiceURL', "http://162.243.247.191/")
 	.constant('maxFileUploadSize', 128000000)
-	/**
-	 * Prevent auto-scrolling to top on state change
-	 * https://github.com/angular-ui/ui-router/issues/110#issuecomment-18052396
-	 */
-	.value('$anchorScroll', angular.noop)
+/**
+ * Prevent auto-scrolling to top on state change
+ * https://github.com/angular-ui/ui-router/issues/110#issuecomment-18052396
+ */
+.value('$anchorScroll', angular.noop)
 	.service("filesService", function($http, $q, webServiceURL) {
 		this.getFileByCategory = function(category, subcategory, id) {
 			var deferred = $q.defer();
@@ -42,24 +42,25 @@ angular.module('app.services', [])
 		};
 
 		this.createFile = function(file) {
-			return $http.post(webServiceURL +"/files", file).then(function(response) {
+			return $http.post(webServiceURL + "/files", file).then(function(response) {
 				return response.data;
 			});
 		};
 
 		this.updateFile = function(file) {
-			return $http.put(webServiceURL +"/files/" + file.id, file).then(function(response) {
+			return $http.put(webServiceURL + "/files/" + file.id, file).then(function(response) {
 				return response.data;
 			});
 		};
 
 		this.deleteFile = function(file) {
-			return $http.delete(webServiceURL +"/files/" + file.id);
+			return $http.delete(webServiceURL + "/files/" + file.id);
 		};
 	})
 	.service('breadcrumbService', function($rootScope, filesService) {
 		this.getBreadcrumbs = function($state, $stateParams) {
 			var breadcrumbs = [];
+			console.log("states", $state.get());
 
 			// var states = (function() {
 			// 	var states = [];
@@ -82,13 +83,13 @@ angular.module('app.services', [])
 					"dashboard.item": function() {
 						return $stateParams.id ? $stateParams.id : "New";
 					},
-					"listen.category": function() {
+					"category": function() {
 						return $stateParams.category;
 					},
-					"listen.category.subcategory": function() {
+					"subcategory": function() {
 						return $stateParams.subcategory;
 					},
-					"listen.category.subcategory.item": function() {
+					"subcategory.item": function() {
 						return $stateParams.id;
 					},
 					"page": function() {
@@ -102,7 +103,7 @@ angular.module('app.services', [])
 			};
 
 
-			var stateIncludes = function(stateName){
+			var stateIncludes = function(stateName) {
 				var inculudedStates = {
 					"home": function() {
 						return ["home"];
@@ -113,14 +114,14 @@ angular.module('app.services', [])
 					"dashboard.item": function() {
 						return ["home", "dashboard", "dashboard.item"];
 					},
-					"listen.category": function() {
-						return ["home", "listen.category"];
+					"category": function() {
+						return ["home", "category"];
 					},
-					"listen.category.subcategory": function() {
-						return ["home", "listen.category", "listen.category.subcategory"];
+					"subcategory": function() {
+						return ["home", "category", "subcategory"];
 					},
-					"listen.category.subcategory.item": function() {
-						return ["home", "listen.category", "listen.category.subcategory", "listen.category.subcategory.item"];
+					"subcategory.item": function() {
+						return ["home", "category", "subcategory", "subcategory.item"];
 					},
 					"page": function() {
 						return ["home", "page"];
@@ -145,7 +146,6 @@ angular.module('app.services', [])
 			breadcrumbs.push({
 				name: getName($state.current.name)
 			});
-			console.log("breadcrumbs",breadcrumbs);
 			return breadcrumbs;
 		};
 	});

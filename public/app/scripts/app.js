@@ -30,7 +30,7 @@ app.config(function($stateProvider, $urlRouterProvider, $controllerProvider, $ht
 						return response.data;
 					});
 				},
-				whatsNew:function($http) {
+				whatsNew: function($http) {
 					return $http.get(webServiceURL + 'whats_new/').then(function(response) {
 						return response.data;
 					});
@@ -58,35 +58,16 @@ app.config(function($stateProvider, $urlRouterProvider, $controllerProvider, $ht
 				}
 			}
 		})
-		.state('listen', {
-			url: 'listen',
-			views: {
-				"@": {
-					templateUrl: 'app/templates/page.html'
-				}
-			},
-
-			abstract: true,
-			parent: 'home'
-		})
-		.state('listen.category', {
-			url: '/:category',
-			views: {
-				'main-content': {
-					templateUrl: function($stateParams) {
-						return 'app/templates/' + $stateParams.category + '.html';
-					}
-				}
-			}
-		})
-		.state('listen.category.subcategory', {
-			url: '/:subcategory',
-			views: {
-				'main-content@listen': {
-					templateUrl: 'app/templates/items.html',
-					controller: 'FilesController'
-				}
-			},
+	.state('category', {
+		url: '/listen/:category',
+		templateUrl: function($stateParams) {
+			return 'app/templates/' + $stateParams.category + '.html';
+		}
+	})
+		.state('subcategory', {
+			url: '/listen/:category/:subcategory',
+			templateUrl: 'app/templates/items.html',
+			controller: 'FilesController',
 			resolve: {
 				files: function($stateParams, $filter, filesService) {
 					var category = $filter('ucfirst')($stateParams.category);
@@ -95,10 +76,18 @@ app.config(function($stateProvider, $urlRouterProvider, $controllerProvider, $ht
 				}
 			}
 		})
-		.state('listen.category.subcategory.item', {
+		.state('subcategory.item', {
 			url: '/:id',
-			templateUrl: 'app/templates/item.html',
-			controller: 'FileController',
+			views:{
+				'title':{
+					template: '<h1 ng-bind="file.title"></h1>',
+					controller: 'FileController'
+				},
+				'description':{
+					template: '<p ng-bind="file.description"></p>',
+					controller: 'FileController'
+				}
+			},
 			resolve: {
 				file: function($stateParams, $filter, filesService) {
 					var category = $filter('ucfirst')($stateParams.category);

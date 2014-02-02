@@ -8,11 +8,9 @@ angular.module('app.directives', [])
 				next: '&'
 			},
 			link: function(scope, element, attrs) {
-
 				$http.get('app/templates/jplayer.html', {
 					cache: $templateCache
 				}).success(function(tplContent) {
-
 					element.replaceWith($compile(tplContent)(scope));
 					element.jPlayer({
 						ready: function(event) {
@@ -50,19 +48,11 @@ angular.module('app.directives', [])
 		};
 	})
 	.directive('jplaylist', function($http, $templateCache, $compile, $parse, $rootScope, $stateParams, $state, $timeout) {
-
 		return {
 			restrict: 'E',
 			scope: {
 				playlist: '=',
 				track: '='
-				/**
-				
-					TODO:Update playlist on state change
-					//http://stackoverflow.com/questions/16881478/how-to-call-a-method-defined-in-an-angularjs-directive
-				
-				**/
-
 			},
 			link: function(scope, element, attrs) {
 				//debugger;
@@ -104,19 +94,15 @@ angular.module('app.directives', [])
 					};
 					getTrack();
 					play(track);
-					// if (!self.isPlaying) {
-					// 	play(track);
-					// }
 					$rootScope.$on('$stateChangeSuccess', function() {
-						if ($state.includes('listen.category.subcategory.item') && myPlaylist.playlist[myPlaylist.current].title != $stateParams.id) {
+						if ($state.includes('subcategory.item') && myPlaylist.playlist[myPlaylist.current].title != $stateParams.id) {
 							getTrack();
 							play(track);
+						} else if ($state.is('subcategory')) {
+							myPlaylist.pause();
 						}
-					});
-					// $rootScope.$on('changeTrack', function(event, index) {
-					// 	play(index);
-					// });
 
+					});
 					myPlaylist.select = function(index) {
 						console.log("myPlaylist.select()");
 						index = (index < 0) ? this.original.length + index : index; // Negative index relates to end of array.
@@ -127,11 +113,9 @@ angular.module('app.directives', [])
 						} else {
 							this.current = 0;
 						}
-
-						console.log('this.playlist[this.current].title', this.playlist[this.current].title);
 						if (this.playlist[this.current].title != $stateParams.id) {
 							//debugger;
-							$state.go('listen.category.subcategory.item', {
+							$state.go('subcategory.item', {
 								category: $stateParams.category,
 								subcategory: $stateParams.subcategory,
 								id: this.playlist[this.current].title
@@ -139,15 +123,6 @@ angular.module('app.directives', [])
 						}
 
 					};
-					//self.isPlaying = false;
-					// $(myPlaylist.cssSelector.jPlayer).unbind($.jPlayer.event.ended);
-					// $(myPlaylist.cssSelector.jPlayer).bind($.jPlayer.event.ended, function() {
-					// 	console.log("ended");
-					// 	self.isPlaying = true;
-					// 	console.log("isplaying", self.isPlaying);
-					// 	myPlaylist.next();
-					// });
-
 				});
 			}
 		};
