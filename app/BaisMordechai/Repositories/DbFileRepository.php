@@ -74,13 +74,13 @@ class DbFileRepository implements FileRepositoryInterface{
 	public function saveUploadedFile($file, $filename){
 		$originalFileName = $file->getClientOriginalName();
 		$clientOriginalExtension = $file->getClientOriginalExtension();
-		umask(0755);
+		//umask(0755);
 		$file->move($_SERVER['DOCUMENT_ROOT'].'/uploads', $filename);
 		//make ogg equivalent
-		$command = 'dir2ogg /var/www/bais-mordechai-laravel/public/uploads/"'.$filename.'"';
+		//$command = 'dir2ogg /var/www/bais-mordechai-laravel/public/uploads/"'.$filename.'"';
 		//$command = 'echo $PATH';
-		$output = $this->_pipeExec($command);
-		return $output;
+		//$output = $this->_pipeExec($command);
+		return $filename;
 	}
 	private function _pipeExec($cmd, $input = '')
 	{
