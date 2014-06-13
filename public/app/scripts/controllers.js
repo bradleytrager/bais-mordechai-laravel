@@ -54,6 +54,7 @@ angular.module('app.controllers', ['angularFileUpload'])
 		angular.forEach(files, function(file){
 			$scope.playlist.push({
 				title:file.title,
+				oga: file.oggFilename,
 				mp3:file.filename
 			})
 		});

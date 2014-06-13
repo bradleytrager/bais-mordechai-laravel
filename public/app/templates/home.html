@@ -25,7 +25,7 @@
 	<div class="row">
 		<div class="col-md-4 no-gutter">
 			<div class="well hero-unit">
-				<h2 class="no-margin-top"><a ui-sref="listen.category.subcategory({category:'shiurim', subcategory:'{{currentParashah | tolower}}' })">Current Parashah</a></h2>
+				<h2 class="no-margin-top"><a ui-sref="subcategory({category:'shiurim', subcategory:'{{currentParashah | tolower}}' })">Current Parashah</a></h2>
 				<p>See all of Marty's classes on the current weekly parashah</p>
 
 			</div>
@@ -35,7 +35,7 @@
 				<h2 class="no-margin-top">What's New</h2>
 				<ul>
 					<li ng-repeat="new in whatsNew">
-						<a ui-sref='listen.category.subcategory.item({category:new.category, subcategory:new.subcategory , id: new.title})'>
+						<a ui-sref='subcategory.item({category:new.category, subcategory:new.subcategory , id: new.title})'>
 							{{new.title}} ( {{new.created_at | timeago}} )
 						</a>
 					</li>

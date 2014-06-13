@@ -75,7 +75,7 @@ angular.module('app.directives', [])
 							removeTime: 0
 						},
 						swfPath: "app/vendor/jplayer/flash/",
-						supplied: "mp3",
+						supplied: "oga, mp3",
 						smoothPlayBar: true,
 						keyEnabled: true,
 						audioFullScreen: true
